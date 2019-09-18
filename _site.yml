@@ -1,0 +1,15 @@
+name: "MT5013"
+output_dir: "."
+navbar:
+  title: "Statical Data Processing (MT5013)"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Schedule"
+      href: schedule.html
+    - text: "Homework"
+      href: HW.html
+    - text: "Exam"
+      href: exam.html       
+    - text: "Project"
+      href: project.html

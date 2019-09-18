@@ -1,0 +1,101 @@
+---
+title: 'Day 3: Tidyverse: `group_by` and `summarise`, more `ggplot2`'
+output:
+  html_document:
+    toc: true
+    toc_depth: 4    
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+
+## Do this before class
+
+Read [R4DS](http://r4ds.had.co.nz/) chapters 5.6-5.7, 3.7-3.10.
+
+Solve *Grouping and Summarizing* and *Types of vizualisations* at [DataCamp](https://www.datacamp.com/enterprise/mt5013-ht18/assignments).
+
+## During class
+
+Open your `Class_files`-project and "Pull Branch" (under Tools > Version control in RStudio) in order to make sure you have files ready and updated.
+
+
+## SR songs
+
+The script [`Class_files/SR_music.R`](https://github.com/MT5013-HT18/Class_files/blob/master/SR_music.R) contains a simple function `get_SR_music` for grabbing music played on [Swedish Radio](https://sverigesradio.se/) channels from their open [API](https://sverigesradio.se/api/documentation/v2/index.html). Load it by
+```{r, eval = FALSE, }
+source("Class_files/SR_music.R")
+```
+```{r, echo = FALSE}
+source("../../Class_files_HT18/SR_music.R")
+```
+and grab e.g. the songs on P3 (channel 164) at the turn of last year by
+```{r}
+get_SR_music(channel = 164, date = "2017-12-31") %>% select(title, artist, start_time) %>% head()
+```
+If you want multiple dates, the `map`-functions from the `purrr`-package (included in the `tidyverse`) are convenient (more about these later on in the course). Grabbing music played from e.g. 2018-01-01 to 2018-01-07 into `music` is done by
+```{r, eval = FALSE}
+days <- seq(as.Date("2018-01-01"), as.Date("2018-01-07"), "days")
+music <- map_df(days, get_SR_music, channel = 164)
+```
+
+
+### Excercises
+
+*Note: Data is not entirely clean and the same artist/song may be coded in multiple ways (e.g. `Cherrie & Z.E.`, `Cherrie, Z.e` and `Cherrie, Z.E`). You may ignore this for now.*
+
+* Pick a date, or a sequence of dates, and list the 5 most played songs.
+* What artist has the most number of different songs played over some sequence of days?
+* Visualise the distribution of song durations.
+* Pick a sequence of dates and visualise how the songs `start_time`s are distributed over the day. Repeat for another channel, e.g. P2 (channel 163). You can grab components of a date-time (POSIXct) object with `format` as in
+
+```{r}
+as.POSIXct("2018-01-01 23:57:04 CET") %>% format("%H:%M")
+```
+for extracting the hour and minute, see `?format.POSIXct` for more examples. Note that the above code results in a value of character-type, you may want to further convert to numeric format (e.g. minutes or hours after midnight) before plotting.
+
+* Visualise the number of hours spent playing music each day over a sequence of dates.
+
+## Insurance claims from kammarkollegiet
+
+[Kammarkollegiet](https://www.kammarkollegiet.se/) is a public agency that among other things issue insurances. The file [`Class_files/claims.csv`](https://github.com/MT5013-HT18/Class_files/blob/master/claims.csv) contains data on claims from one of their personal insurances. Each claim has an unique `Claim id`, a `Claim date`, a `Closing date` and a number of `Payment`s disbursed at `Payment date`s. If the claim is not closed (there may be more payments coming) `Closing date` is given value `NA`. Null claims, i.e. claims that has been closed without payment, are not included.
+
+Read the data by
+```{r, eval = FALSE}
+claim_data <- read_csv("Class_files/claims.csv")
+```
+
+
+### Excercises
+
+* Plot the number of claims per year (each `Claim id` should only be counted once!).
+
+Actuaries are very fond of [*loss triangles*](https://en.wikipedia.org/wiki/Chain-ladder_method#Example). This is a table where the value on row $i$, column $j$ is the sum of all payments on claims with `Claim date` in year $i$ that are disbursed until the $j$:th calendar year after the year of the claim/accident. The table will be a triangle since future payments are not available.
+
+* For claims made since 2010, compute the loss triange and print it with `knitr::kable`. Try to do it in a single sequence of pipes. If future payments are coded as `NA`, using `options(knitr.kable.NA = '')` will result in a nicer looking table.
+
+## Election 2018
+
+All political parties participating in the 2018 Swedish elections can be downloaded from [Valmyndigheten](https://data.val.se/val/val2018/statistik/index.html#deltagande_partier) by
+```{r, eval = FALSE}
+parties_2018 <- read_csv2("https://data.val.se/val/val2018/valsedlar/partier/deltagande_partier.skv",
+                          locale = locale("sv", encoding = "ISO-8859-1"))
+```
+
+### Excercises
+
+* How many unique parties participated in each of the three elections (`VALTYP` equals `R` for [Riksdagen](https://en.wikipedia.org/wiki/Riksdag), `L` for [Landsting](https://en.wikipedia.org/wiki/County_councils_of_Sweden) and `K` for [Kommun](https://en.wikipedia.org/wiki/Municipal_council_(Sweden)))? Note that the same party may appear multiple times (based on e.g. multiple reasons of inclusion in `DELTAGANDEGRUND`)
+
+* How many local parties (parties only participating within a single `VALKRETSKOD`) participated in the Kommunalval (`VALTYP` equals `K`)?
+
+
+## Systembolaget's assortment
+
+As in [last class](day2.html) load Systembolaget's assortment and select the regular product range.
+
+### Excercises
+
+* How many beverages are there in each group of products (`Varugrupp`)? Use `filter` and `is.na` to filter out beverages where `Varugrupp` is not available.
+* Select red wines of vintage 2011-2018. Compute the mean `PrisPerLiter` for each vintage and visualise using `ggplot`.
+* List the cheapest beverage (by `PrisPerLiter`) in each `Varugrupp`.

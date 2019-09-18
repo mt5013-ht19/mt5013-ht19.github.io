@@ -1,0 +1,40 @@
+---
+title: "Schedule HT18"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
+suppressPackageStartupMessages(library(jsonlite))
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(knitr))
+
+# Byt https mot aktuell schemalänk nedan
+TimeEdit_URL <- "https://cloud.timeedit.net/su/web/stud1/ri107355X09Z06Q5Z86g2Yl5yZ076Y32Q03gQY5Q5572l674Qq6556pXrBWuW3cpWbu7d%C3%A45W55Wma1K7hWwd61noaKu46XXujb8373WW35W8VX6%C3%A465WY74a4X8Y4a9nWY7X84oWW855jW5L06VW035953oV8c2wx6VjW6Wo64YVWW3X391oW40YxVI1wa51XWW1r5v69YYWX537W7Yo0WVoo56V.json"
+datum <- unique(fromJSON(TimeEdit_URL, flatten = TRUE)$reservations) %>% 
+    mutate(veckodag = weekdays(as.Date(startdate)), 
+           tid = paste(starttime, endtime, sep = "-")) %>% 
+    select(veckodag, startdate, tid) %>% 
+    distinct() # %>% apply(., 1, paste, collapse = ", ")
+topics <- c(
+    "[Introduction. Software, GitHub and Markdown.](Class/day1.html) [[Slides]](slides/slide1.html)",
+    "[Tidyverse: Basic dplyr and ggplot2.](Class/day2.html) [[Slides]](slides/slide2.html)",
+    "[Tidyverse: group_by and summarise, more ggplot2.](Class/day3.html)",
+    "[Exploratory data analysis](Class/day4.html)",
+    "[Cleaning data: Tidy data. Long to wide and back.](Class/day5.html)",
+    "[Relational data: Combining tables with dplyr joins.](Class/day6.html) <br> **Guest lecture: Sebastian Tengborg from [King](https://king.com/sv)** (9.15- ca 9.45)",
+        "[Relational data: SQL basics](Class/day7.html).",
+    "[Exploring high-dimensional data: Principal components and clustering](Class/day8.html)",
+    "[Text data: Regular expressions.](Class/day9.html)",
+    "[Using APIs: httr, JSON and XML.](Class/day10.html)",
+    "[Web-scraping: Basic rvest.](Class/day11.html)",
+    "[R Programming: Programming with functions.](Class/day12.html)",
+    "[R Programming: Functional programming with purrr.](Class/day13.html)",
+    "[Presenting: Principles of visualisation.](Class/day14.html)",
+    "Exam.",
+    "Project supervision",
+    "Project presentation.")
+kable(data.frame(Day = paste(datum$veckodag, datum$startdate, sep = ", "), Time = datum$tid, Topic = topics))
+```

@@ -1,0 +1,64 @@
+---
+title: 'Day 4: Exploratory data analysis'
+output:
+  html_document:
+    toc: true
+    toc_depth: 4    
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+
+## Do this before class
+
+Read [R4DS](http://r4ds.had.co.nz/) chapter 7.
+
+Solve *Exploring Categorical Data* and *Exploring Numerical Data* at [DataCamp](https://www.datacamp.com/enterprise/mt5013-ht18/assignments).
+
+## During class
+
+### Systembolaget's  assortment
+
+* Use `filter` to extract the groups of products `c("Vitt vin", "Rött vin", "Rosévin", "Mousserande vin")` of vintage 2011-2018. Try and compare the following bar charts
+    * `ggplot` with  `aes(x = Argang)`, `geom_bar()` and 
+    * `ggplot` with `aes(x = Argang)`, `geom_bar()` and `facet_wrap(~ Varugrupp)` (try adding `scale = "free_y"` to `facet_wrap`)
+    * `ggplot` with `aes(x = Argang, fill = Varugrupp)` and
+        * `geom_bar()`
+        * `geom_bar(position = "dodge")`
+        * `geom_bar(position = "fill")`
+
+
+* Recreate the following plot (Red wines in the regular range)
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+read_csv("../../Class_files_HT18/systembolaget2018-10-18.csv") %>% 
+    mutate(Alkoholhalt = as.numeric(gsub("%", "", Alkoholhalt))) %>% 
+    mutate(Varugrupp = ifelse(Varugrupp == "Röda", "Rött vin", Varugrupp)) %>% 
+    mutate(Varugrupp = ifelse(Varugrupp == "Vita", "Vitt vin", Varugrupp)) %>% 
+    filter(SortimentText == "Ordinarie sortiment") %>% 
+    filter(Varugrupp %in% c("Rött vin")) %>% 
+    filter(Argang %in% 2011:2018) %>% 
+    mutate(Argang = as.factor(Argang)) %>% 
+    ggplot(aes(x = Argang, y = PrisPerLiter))+ geom_boxplot()+ ggtitle("Red wines") +xlab("Vintage") +ylab("Price per liter")
+```
+
+* Make a `box_plot` of `PrisPerLiter` on the log-scale,with `x = Varugrupp`. Try `coord_flip` to improve readability.
+
+
+### Winter medals
+
+The following code transforms the medals data to "long" format (more about this next time!) which is easier to work with in `ggplot`:
+```{r, eval = FALSE}
+medal_long <- read_csv("Class_files/Winter_medals2018-09-26.csv") %>% 
+    select(-Total) %>% 
+    gather(Denomination, Number, c("Gold", "Silver", "Bronze"))
+```
+Check the result with `glimpse(medal_long)`. Use `group_by` and `summarise` in order to aggregate the total number of medals of each denomination (Gold/Silver/Bronze) for each country. Illustrate the relative proportions of denominations, e.g. by `geom_bar` with `stat = "identity` and `position = "fill"`. 
+
+### First math course
+
+The file [`Class_files/MM2001_results.csv`](https://github.com/MT5013-HT18/Class_files/blob/master/MM2001_results.csv) contains the age, sex, and grade on course Matematik I (MM2001) of 3201 students aged 18-40 years. An `NA` in the grade column means that the student has been registered but not yet completed the course.
+
+Use `ggplot` to explore relations between the variables.
+

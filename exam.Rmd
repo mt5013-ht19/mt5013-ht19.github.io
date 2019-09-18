@@ -1,0 +1,21 @@
+---
+title: "Electronic exam (1.5 hp, betyg A-F)"
+output: html_document
+---
+
+An electronic exam,  1.5 hp, is scheduled on  **2018-12-21**. This will test basic skills in using the tools introduced in the course and involves live coding in an RStudio environment, without internet access. During the exam, you will have access to the following cheat sheets in paper form (list may be updated before exam):
+
+
+* [R Markdown Cheat Sheet](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf)
+* [Data Visualization Cheat Sheet](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf)
+* [Data Transformation Cheat Sheet](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)
+* [Data Import Cheat Sheet](https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf)
+* [Working with Strings Cheat Sheet](https://github.com/rstudio/cheatsheets/raw/master/strings.pdf)
+* [SQL Cheat Sheet](http://files.zeroturnaround.com/pdf/zt_sql_cheat_sheet.pdf)
+
+Your RSTudio environment will have access to the following libraries:
+`tidyverse` (e.g. `dplyr`, `tidyr`, `readr`, `stringr`), `rmarkdown`, `knitr`, `DBI`, `rsqlite`, `rebus`, `jsonlite`, `listviewer`, `xml2`.
+
+## Old exams
+
+[Exam 2018-02-27](https://github.com/MT5013-HT18/Exam_20180227) (in Swedish)

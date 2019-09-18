@@ -1,0 +1,315 @@
+---
+title: "Statical data processing MT5013"
+author: "Martin Sköld"
+output:
+  ioslides_presentation:
+    logo: SU_logo_CMYK.png
+    incremental: FALSE
+    css: slides.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(aplpack))
+suppressPackageStartupMessages(library(GGally))
+suppressPackageStartupMessages(library(corrplot))
+suppressPackageStartupMessages(library(rgl))
+suppressPackageStartupMessages(library(DescTools))
+
+# knit_hooks$set(webgl = hook_webgl)
+
+# base scale works poorly with dplyr
+my_scale <- function(x)((x-mean(x))/sd(x))
+```
+
+# Multivariate and high-dimansional data
+
+## Variables vs observations
+
+* Find covariation between variables
+* Find groups of similar observations
+
+## How do we find similar observations?
+
+```{r}
+mtcars
+```
+
+
+## Glyphs `stars(mtcars)`
+```{r, echo = FALSE}
+stars(mtcars, ncol = 9, key.loc = c(18, 0))
+```
+
+## Glyphs `DescTools::PlotFaces(mtcars)`
+```{r, echo = FALSE, messages = FALSE, fig.width=9, fig.height=7}
+PlotFaces(mtcars, nc = 7)
+```
+
+
+## Heatmap (standardised var.)
+
+```{r, echo = FALSE, warning=FALSE}
+mtcars %>% 
+    rownames_to_column("model") %>% 
+    mutate_if(is.numeric, scale) %>% 
+    gather(key = key, value = value, mpg:carb) %>% 
+    ggplot(aes(x = key, y = model)) + 
+    geom_tile(aes(fill = value)) + 
+    scale_fill_gradient2() + xlab("")
+```
+
+## Lines
+
+```{r, echo = FALSE}
+mtcars %>% 
+    rownames_to_column("model") %>% 
+    mutate_if(is.numeric, my_scale) %>% 
+    gather(key = key, value = value, mpg:carb) %>% 
+    mutate(x = as.numeric(as.factor(key))) %>% 
+    ggplot(aes(x = x, y = value, color = model)) + geom_point() +geom_line(aes(group = model)) +
+    xlab("") + scale_x_continuous(breaks = 1:ncol(mtcars), labels = names(mtcars))
+```
+
+## Lines
+
+```{r, echo = FALSE}
+mtcars %>% 
+    rownames_to_column("model") %>% 
+    mutate(cyl = as.factor(cyl)) %>% 
+    mutate_if(is.numeric, scale) %>% 
+    gather(key = key, value = value, mpg:carb, -cyl) %>% 
+    mutate(x = as.numeric(as.factor(key))) %>% 
+    ggplot(aes(x = x, y = value, color = cyl)) + geom_point() +geom_line(aes(group = model)) +
+    scale_x_continuous(breaks = 1:ncol(mtcars[,-2]), labels = names(mtcars[,-2])) + xlab("")
+```
+
+
+## Covariation `GGally::scatmat(trees)`
+
+```{r, echo = FALSE}
+scatmat(trees)
+```
+
+## Covariation `GGally::scatmat(mtcars)`
+
+```{r, echo = FALSE}
+scatmat(mtcars)
+```
+
+## Covariation `GGally::scatmat(randu)`
+
+```{r, echo = FALSE}
+GGally::scatmat(randu)
+```
+
+
+## Covariation `rgl::plot3d(randu)`
+
+```{r, out.width = "400px", echo = FALSE}
+knitr::include_graphics("randu3d_1.png")
+```
+
+## Covariation `rgl::plot3d(randu)`
+
+```{r, out.width = "400px", echo = FALSE}
+knitr::include_graphics("randu3d_2.png")
+```
+
+
+
+## Covariation `corrplot::corrplot`
+```{r, echo = FALSE}
+corrplot(cor(mtcars))
+```
+
+
+## Singular value decomposition
+
+Let $X$ be a centered matrix with $p$ variables in columns and $n$ obervations in rows.
+
+If $n\geq p$ we can make a singular value decomposition (SVD) of $X$:
+
+
+$$
+X = UD V^T
+$$
+where
+
+* $U$ of dimension ($n\times p$) has orthonormal columns
+* $D$ is a diagonal matrix with diagonal $d=(d_1,\ldots, d_p)$, $d_1\geq \ldots \geq d_p\geq 0$
+* $V$ of dimension $(p\times p)$ is an orthogonal matrix.
+
+## Singular value decomposition
+
+$$
+\begin{align*}
+X & = UD V^T = \sum_{i=1}^p u_id_iv_i^T\\
+& \approx \sum_{i=1}^q u_id_iv_i^T = U_{1:n,1:q}D_{1:q}V_{1:q},
+\end{align*}
+$$
+for $q<p$.
+
+## Data `trees` (normalised)
+```{r, echo = FALSE}
+trees_c <- scale(trees) %>% 
+    as.data.frame() %>% 
+    select(Girth, Volume)
+with(trees_c, plot(Girth, Volume, xlim = c(-4, 4), ylim = c(-3,3)))
+```
+
+
+## $u_1$ och $u_2$
+
+```{r, echo = FALSE}
+u <- svd(trees_c)$u
+d <- svd(trees_c)$d
+v <- svd(trees_c)$v
+plot(u[,1]*d[1], u[,2]*d[2], xlim = c(-4, 4), ylim = c(-3,3))
+```
+
+## Projected
+
+```{r, echo = FALSE}
+plot(u[,1]*d[1], u[,2]*d[2] * 0, xlim = c(-4, 4), ylim = c(-3,3))
+```
+
+
+## Rotated back
+
+```{r, echo = FALSE}
+plot(u %*% diag(c(d[1], 0)) %*% t(v),  xlim = c(-4, 4), ylim = c(-3,3))
+points(trees_c, col = "red")
+```
+
+## `mtcars` without `cyl`
+
+```{r, echo = FALSE}
+plot(svd(mtcars[, -2])$u[,1:2])
+```
+
+## `mtcars` without `cyl`
+
+```{r, echo = FALSE}
+plot(svd(mtcars[, -2])$u[,1:2], col = as.factor(mtcars$cyl))
+```
+
+
+## Principal components
+
+Let $X_1, \ldots, X_p$ denote the columns of $X$ (i.e. the "variables") assumed to be centered. In principal components analysis we want to find linear combinations of $X_1, \ldots, X_p$ with maximal variance.
+
+
+1. The first principal component vector $T_1$ is found as $T_1=X\times v_1$ that maximises $\sum_{i=1^n}T_{i1}^2$ subject to $|v_1| = 1$.
+2. The second principal component vector $T_2$ is found as $T_2=X\times v_2$ that maximises $\sum_{i=1^n}T_{i2}^2$ subject to $|v_2| = 1$ and $v_1\perp v_2$.
+3. ...
+
+## Principal components
+
+* Vectors $v_i$ are the eigenvectors of the empirical covariance matrix $X^TX/n$.
+* But $X^TX=(UD V^T)^TUD V^T=V D U U^TU D V^T=VD^2V^T$ (spectral decomposition).
+* The columns of $V$ are eigenvectors to $X^TX/n$.
+
+## Decathlon
+
+```{r, warning=FALSE}
+library(GDAdata)
+head(Decathlon)
+```
+
+## Tiokamp
+
+```{r, echo = FALSE}
+scores <- select(Decathlon, starts_with("P"), -Polevault) %>% 
+    mutate_all(scale)
+plot(svd(scores)$u[,1:2])
+```
+
+## `biplot`
+
+```{r, echo = FALSE}
+biplot(prcomp(scores))
+```
+
+## `biplot`
+
+```{r, echo = FALSE}
+biplot(prcomp(scores), col = c("white", "red"))
+```
+
+
+
+
+## Cluster analysis
+
+We want to find clusters of observations/variables that are close/similar
+
+* If two columns are "close" they measure roughly the same thing
+* If two rows are "close", the individuals/observations are similar
+* We limit ourselves to euclidian distance after standardising (`scale`)
+
+## Hierarchical linkage
+
+1. Each observation forms a cluster of its own
+2. Join the two closest clusters and recalculate distances
+3. Repeat step 2 until there is only one
+
+## Cluster distances
+
+* Complete: Largest distance
+* Single: Smallest distance
+* Average: Average distance
+
+## Visualise with dendrogram
+
+```{r, echo = FALSE}
+plot(hclust(dist(c(1, 1.5, 4,5)), method = "single"), labels = c("A", "B", "C", "D"), hang = -1)
+```
+
+
+
+## Visualise with dendrogram
+
+```{r, echo = FALSE}
+scores %>% 
+    t() %>% 
+    dist() %>% 
+    hclust() %>% 
+    plot(hang = -1)
+
+```
+
+## Visualise with dendrogram
+
+```{r, echo = FALSE}
+mtcars[, -2] %>% 
+    dist() %>% 
+    hclust() %>% 
+    plot(hang = -1)
+```
+
+## Visualise with dendrogram
+
+```{r, echo = FALSE}
+mtcars[, -2] %>% 
+    dist() %>% 
+    hclust() %>% 
+    plot(labels = mtcars$cyl, hang = -1)
+```
+
+## Heatmap sorted after clustering
+
+```{r, echo = FALSE}
+cluster_obs <- cutree(hclust(dist(mtcars[, -2])), k = 3)
+mtcars %>% 
+    rownames_to_column("model") %>% 
+    select(-cyl) %>% 
+    mutate_if(is.numeric, my_scale) %>% 
+    mutate(model = reorder(model, cluster_obs), cluster = cluster_obs) %>% 
+    gather(key = key, value = value, mpg:cluster) %>% 
+    ggplot(aes(x = key, y = model)) + geom_tile(aes(fill = value)) + scale_fill_gradient2() + xlab("")
+```
+
+
+

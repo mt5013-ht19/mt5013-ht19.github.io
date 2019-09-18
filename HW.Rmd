@@ -1,0 +1,21 @@
+---
+title: "Individual homework (3 hp, grade PASS/FAIL.)"
+output: html_document
+---
+
+Six homework assignments should be solved and uploaded on GitHub at the latest 24:00 on their respective date of deadline. These should be solved individually. The assignments also involves peer review of another students solution.
+
+
+```{r, echo =FALSE}
+HW <- c(
+    "[HW1: GitHub test-run](HW/HW1.html)",
+    "[HW2: Basic tidyverse](HW/HW2.html)",
+    "[HW3: Working with tables](HW/HW3.html)",
+    "[HW4: Stores and products](HW/HW4.html)",
+    "[HW5: Texts and lists](HW/HW5.html)",
+    "[HW6: Scraping and mapping](HW/HW6.html)"
+)
+deadline <- seq(as.Date("2018/11/11"), by = "week", length.out = 6)
+knitr::kable(data.frame(Homework = HW, Deadline = deadline))
+```
+

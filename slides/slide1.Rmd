@@ -1,0 +1,295 @@
+---
+title: "Statistical Data Processing <br> MT5013"
+subtitle: "Day 1"
+author: "Martin Sköld"
+output:
+  ioslides_presentation:
+    logo: SU_logo_CMYK.png
+    incremental: TRUE
+    css: slides.css
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+
+# A course in Data Science
+
+
+## Not including...
+
+- ...machine learning...
+
+- ...Big Data architectures...
+
+- ...formal statistical inference...
+
+
+## The Data Science Venn Diagram
+
+```{r, out.width = "500px", echo=FALSE}
+knitr::include_graphics("Data_Science_VD.png")
+```
+
+<small> Image from <http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram> </small> 
+
+## Statistical Data Processing
+
+```{r, out.width = "700px"}
+knitr::include_graphics("http://r4ds.had.co.nz/diagrams/data-science.png")
+```
+
+Statistics courses often focus on the **Model**-step, this course aims to focus on the other.
+
+<small> Image from <http://r4ds.had.co.nz/introduction.html> </small>
+
+# Reproducibility
+
+## Copy, Paste, Click
+
+* As a statistician/actuary/mathematician you will be writing lots of reports.
+* It is tempting to create tables and figures by copy, paste, click in and between Excel sheets.
+* Exemple: Give me a figure of montly consumer price index 2017 <br>
+<https://www.google.se/search?q=kpi+scb>
+
+
+## Problems
+
+
+* "Intresting decline at the end, but what month is 13?"
+* "Nice, but I'd rather have a table?"
+* Next year a colleague (or yourself) asks how you did it.
+
+
+## Reproducible data analysis
+
+> **Reproducibility**  *is the ability to get the same research results or inferences, based on the raw data and computer programs provided by researchers. * 
+
+Cf being able to reproduce the result in an independent experiment (replicability).
+
+## Reproducible data analysis
+
+* Everything written in code (no copy-paste of values/tables/figures)
+
+* Portable (the code should execute, not only on your computer today)
+
+* Accessible (available openly)
+
+* Fully automated from raw-data to report
+
+# Tools for reproducible data analysis
+
+## Code: R or Python?
+```{r, out.width = "500px"}
+knitr::include_graphics("RvsPython.png")
+```
+
+## Code: R ~~or Python~~!
+```{r, out.width = "500px"}
+knitr::include_graphics("RvsPython.png")
+```
+
+
+## R: Too many ways to do the same thing...
+
+
+```
+summary(mtcars$mpg)
+summary(mtcars$"mpg")
+summary(mtcars[, "mpg"])
+summary(mtcars["mpg"])
+summary(mtcars[["mpg"]])
+summary(mtcars[1])
+summary(mtcars[, 1])
+summary(mtcars[[1]])
+with(mtcars, summary(mpg))
+attach(mtcars); summary(mpg)
+summary(subset(mtcars, select=mpg))
+```
+<small> From <http://r4stats.com/articles/why-r-is-hard-to-learn/> </small>
+
+
+## Code: ~~Hadleyverse~~ Tidyverse
+
+<div class="columns-2">
+
+```{r, out.width = "300px"}
+knitr::include_graphics("Hadley.jpg")
+```
+
+
+```{r, out.width = "300px"}
+knitr::include_graphics("Tidyverse.png")
+```
+
+</div>
+A suite of R-packages heavily influenced by Hadley Wickham at RStudio. Focus in this course.
+
+## Automatic report generation
+
+We need to be able to automatically kombine text, results, tables and figures.
+
+
+```{r, out.width = "630px"}
+knitr::include_graphics("pandoc1.png")
+```
+
+<small> Image from <https://rosannavanhespenresearch.files.wordpress.com/> </small>
+
+
+## Automatic report generation: Markdown
+
+
+```{r, out.width = "300px"}
+knitr::include_graphics("Markdown-mark.svg.png")
+```
+
+A markup language for typesetting web-pages.
+
+<http://writeme.mattstow.com/>
+
+## Automatic report generation: R Markdown
+```{r, out.width = "200px"}
+knitr::include_graphics("rmarkdown.png")
+```
+
+Adds executable code to Markdown.
+
+## knitr: .Rmd &#8594; .md
+
+```{r, out.width = "1000px"}
+knitr::include_graphics("Rmd2md.png")
+```
+
+
+## Accessibility (and version control): GitHub and Git
+
+<div class="columns-2">
+
+```{r, out.width = "300px"}
+knitr::include_graphics("Git-Logo-2Color.png")
+```
+
+
+```{r, out.width = "300px"}
+knitr::include_graphics("Octocat.png")
+```
+
+</div>
+
+
+A software for version control and a  web-based hosting service.
+
+## Accessibility: GitHub
+
+* A hosting service for collaborative file sharing, mainly code
+* Based on Git for version control
+* <https://github.com/tidyverse/dplyr>
+
+
+## Version control
+
+<div class="columns-2">
+<small> Bild från <http://phdcomics.com/comics/archive.php?comicid=1531> </small>
+
+```{r, out.width = "300px"}
+knitr::include_graphics("phd101212s.gif")
+```
+
+Not strictly necessary for reproducibility, but important for large projects involving multiple coders. In this course it is mainly a side effect of using GitHub for publication, more about version control in *Computer Science for Mathematicians (DA3018)*.
+
+
+</div>
+
+## All of this is well integrated to RStudio
+
+```{r, out.width = "750px"}
+knitr::include_graphics("RStudio-Logo-Blue-Gradient.png")
+```
+
+Also .Rproj for increased portability.
+
+## Summary
+
+* Everything written in code: R
+
+* Portable: .Rproj (RStudio)
+
+* Accessible: GitHub
+
+* Automated: R Markdown
+
+
+
+# This course
+
+## Textbook
+
+<div class="columns-2">
+```{r, out.width = "300px"}
+knitr::include_graphics("r4ds.png")
+```
+
+<http://r4ds.had.co.nz/>
+
+</div>
+
+## Excercises at DataCamp
+
+```{r, out.width = "750px"}
+knitr::include_graphics("DataCamp.png")
+```
+
+Give basic training and preparation for class activities. Not part of examination.
+
+## How do i use X to produce Y?
+
+```{r, out.width = "700px"}
+knitr::include_graphics("google.png")
+knitr::include_graphics("so-logo.png")
+```
+
+
+## Course structure
+
+* Preparation: Excersises at [DataCamp](https://www.datacamp.com/home) before class.
+* In class: Mainly short reviews/lectures followed by supervised programming excersises.
+* Examination:
+    - 6 homework problems.
+    - Digital exam.
+    - Individual project.
+    
+## Homework problems (3 hp, Pass/Fail)
+
+* Six sets of problems with deadlines the coming six Sundays.
+* To be solved individually. 
+* Suspicions of plagiarism (e.g. copying of other student's code) will be reported.
+* Peer review.
+* Missed deadline/fail: Re-examination in February.
+* Individual homeworks are not valid for the next course offering (autumn 2019).
+
+## Digital exam (1,5hp, A-F, 21/12)
+
+* Problem solving in an RStudio environment.
+* Tools allowed: Relevant Cheatsheets from RStudio.
+
+## Project (3 hp, A-F, oral presentation and deadline 15/1)
+
+* A data-blog-post.
+* Illustrate an issue based on an unique data set.
+* Short (5 min) oral presentation.
+
+
+## Guest lecture
+
+19/11: Sebastian Tengborg, Data scientist at
+
+```{r, out.width = "200px"}
+knitr::include_graphics("King-logo-2013.png")
+```
+
+
+
