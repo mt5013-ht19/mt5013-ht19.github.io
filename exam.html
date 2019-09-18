@@ -7,6 +7,7 @@
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -69,9 +70,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -96,6 +95,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -110,7 +112,6 @@ body {
   padding-top: 56px;
   margin-top: -56px;
 }
-
 .section h2 {
   padding-top: 56px;
   margin-top: -56px;
@@ -130,6 +131,43 @@ body {
 .section h6 {
   padding-top: 56px;
   margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -151,19 +189,73 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -212,7 +304,7 @@ $(document).ready(function () {
 </div>
 
 
-<p>An electronic exam, 1.5 hp, is scheduled on <strong>2018-12-21</strong>. This will test basic skills in using the tools introduced in the course and involves live coding in an RStudio environment, without internet access. During the exam, you will have access to the following cheat sheets in paper form (list may be updated before exam):</p>
+<p>An electronic exam, 1.5 hp, is scheduled on <strong>2019-12-18</strong>. This will test basic skills in using the tools introduced in the course and involves live coding in an RStudio environment, without internet access. During the exam, you will have access to the following cheat sheets in paper form (list may be updated before exam):</p>
 <ul>
 <li><a href="https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf">R Markdown Cheat Sheet</a></li>
 <li><a href="https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf">Data Visualization Cheat Sheet</a></li>
@@ -222,6 +314,10 @@ $(document).ready(function () {
 <li><a href="http://files.zeroturnaround.com/pdf/zt_sql_cheat_sheet.pdf">SQL Cheat Sheet</a></li>
 </ul>
 <p>Your RSTudio environment will have access to the following libraries: <code>tidyverse</code> (e.g. <code>dplyr</code>, <code>tidyr</code>, <code>readr</code>, <code>stringr</code>), <code>rmarkdown</code>, <code>knitr</code>, <code>DBI</code>, <code>rsqlite</code>, <code>rebus</code>, <code>jsonlite</code>, <code>listviewer</code>, <code>xml2</code>.</p>
+<div id="re-exam" class="section level2">
+<h2>Re-exam</h2>
+<p>The re-exam is scheduled for <strong>2020-01-15</strong>.</p>
+</div>
 <div id="old-exams" class="section level2">
 <h2>Old exams</h2>
 <p><a href="https://github.com/MT5013-HT18/Exam_20180227">Exam 2018-02-27</a> (in Swedish)</p>
@@ -244,6 +340,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

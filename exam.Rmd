@@ -3,7 +3,7 @@ title: "Electronic exam (1.5 hp, betyg A-F)"
 output: html_document
 ---
 
-An electronic exam,  1.5 hp, is scheduled on  **2018-12-21**. This will test basic skills in using the tools introduced in the course and involves live coding in an RStudio environment, without internet access. During the exam, you will have access to the following cheat sheets in paper form (list may be updated before exam):
+An electronic exam,  1.5 hp, is scheduled on  **2019-12-18**. This will test basic skills in using the tools introduced in the course and involves live coding in an RStudio environment, without internet access. During the exam, you will have access to the following cheat sheets in paper form (list may be updated before exam):
 
 
 * [R Markdown Cheat Sheet](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf)
@@ -15,6 +15,10 @@ An electronic exam,  1.5 hp, is scheduled on  **2018-12-21**. This will test bas
 
 Your RSTudio environment will have access to the following libraries:
 `tidyverse` (e.g. `dplyr`, `tidyr`, `readr`, `stringr`), `rmarkdown`, `knitr`, `DBI`, `rsqlite`, `rebus`, `jsonlite`, `listviewer`, `xml2`.
+
+## Re-exam
+
+The re-exam is scheduled for **2020-01-15**.
 
 ## Old exams
 
