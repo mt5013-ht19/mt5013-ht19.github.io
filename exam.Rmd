@@ -22,4 +22,4 @@ The re-exam is scheduled for **2020-01-15**.
 
 ## Old exams
 
-[Exam 2018-02-27](https://github.com/MT5013-HT18/Exam_20180227) (in Swedish)
+[Exam 2018-02-27](https://github.com/MT5013-HT18/Exam_20180227) (in Swedish - link works only, if already logged into github)
