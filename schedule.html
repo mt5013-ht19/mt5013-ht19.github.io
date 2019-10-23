@@ -7,6 +7,7 @@
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -69,9 +70,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -96,6 +95,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -110,7 +112,6 @@ body {
   padding-top: 56px;
   margin-top: -56px;
 }
-
 .section h2 {
   padding-top: 56px;
   margin-top: -56px;
@@ -130,6 +131,43 @@ body {
 .section h6 {
   padding-top: 56px;
   margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -151,19 +189,73 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -222,88 +314,88 @@ $(document).ready(function () {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">måndag, 2018-11-05</td>
-<td align="left">09:15-12:00</td>
+<td align="left">Thursday, 2019-11-07</td>
+<td align="left">13:15-16:00</td>
 <td align="left"><a href="Class/day1.html">Introduction. Software, GitHub and Markdown.</a> <a href="slides/slide1.html">[Slides]</a></td>
 </tr>
 <tr class="even">
-<td align="left">onsdag, 2018-11-07</td>
+<td align="left">Friday, 2019-11-08</td>
 <td align="left">09:15-12:00</td>
 <td align="left"><a href="Class/day2.html">Tidyverse: Basic dplyr and ggplot2.</a> <a href="slides/slide2.html">[Slides]</a></td>
 </tr>
 <tr class="odd">
-<td align="left">torsdag, 2018-11-08</td>
+<td align="left">Tuesday, 2019-11-12</td>
 <td align="left">09:15-12:00</td>
 <td align="left"><a href="Class/day3.html">Tidyverse: group_by and summarise, more ggplot2.</a></td>
 </tr>
 <tr class="even">
-<td align="left">måndag, 2018-11-12</td>
+<td align="left">Wednesday, 2019-11-13</td>
 <td align="left">09:15-12:00</td>
 <td align="left"><a href="Class/day4.html">Exploratory data analysis</a></td>
 </tr>
 <tr class="odd">
-<td align="left">onsdag, 2018-11-14</td>
+<td align="left">Tuesday, 2019-11-19</td>
 <td align="left">09:15-12:00</td>
 <td align="left"><a href="Class/day5.html">Cleaning data: Tidy data. Long to wide and back.</a></td>
 </tr>
 <tr class="even">
-<td align="left">måndag, 2018-11-19</td>
+<td align="left">Wednesday, 2019-11-20</td>
 <td align="left">09:15-12:00</td>
-<td align="left"><a href="Class/day6.html">Relational data: Combining tables with dplyr joins.</a> <br> <strong>Guest lecture: Sebastian Tengborg from <a href="https://king.com/sv">King</a></strong> (9.15- ca 9.45)</td>
+<td align="left"><a href="Class/day6.html">Relational data: Combining tables with dplyr joins.</a> <br></td>
 </tr>
 <tr class="odd">
-<td align="left">onsdag, 2018-11-21</td>
+<td align="left">Friday, 2019-11-22</td>
 <td align="left">09:15-12:00</td>
 <td align="left"><a href="Class/day7.html">Relational data: SQL basics</a>.</td>
 </tr>
 <tr class="even">
-<td align="left">torsdag, 2018-11-22</td>
+<td align="left">Tuesday, 2019-11-26</td>
 <td align="left">09:15-12:00</td>
 <td align="left"><a href="Class/day8.html">Exploring high-dimensional data: Principal components and clustering</a></td>
 </tr>
 <tr class="odd">
-<td align="left">måndag, 2018-11-26</td>
+<td align="left">Wednesday, 2019-11-27</td>
 <td align="left">09:15-12:00</td>
 <td align="left"><a href="Class/day9.html">Text data: Regular expressions.</a></td>
 </tr>
 <tr class="even">
-<td align="left">onsdag, 2018-11-28</td>
+<td align="left">Wednesday, 2019-12-04</td>
 <td align="left">09:15-12:00</td>
 <td align="left"><a href="Class/day10.html">Using APIs: httr, JSON and XML.</a></td>
 </tr>
 <tr class="odd">
-<td align="left">onsdag, 2018-12-05</td>
-<td align="left">15:15-17:00</td>
+<td align="left">Friday, 2019-12-06</td>
+<td align="left">09:15-12:00</td>
 <td align="left"><a href="Class/day11.html">Web-scraping: Basic rvest.</a></td>
 </tr>
 <tr class="even">
-<td align="left">torsdag, 2018-12-06</td>
+<td align="left">Tuesday, 2019-12-10</td>
 <td align="left">09:15-12:00</td>
 <td align="left"><a href="Class/day12.html">R Programming: Programming with functions.</a></td>
 </tr>
 <tr class="odd">
-<td align="left">måndag, 2018-12-10</td>
+<td align="left">Wednesday, 2019-12-11</td>
 <td align="left">09:15-12:00</td>
 <td align="left"><a href="Class/day13.html">R Programming: Functional programming with purrr.</a></td>
 </tr>
 <tr class="even">
-<td align="left">torsdag, 2018-12-13</td>
+<td align="left">Friday, 2019-12-13</td>
 <td align="left">09:15-12:00</td>
 <td align="left"><a href="Class/day14.html">Presenting: Principles of visualisation.</a></td>
 </tr>
 <tr class="odd">
-<td align="left">fredag, 2018-12-21</td>
+<td align="left">Wednesday, 2019-12-18</td>
 <td align="left">14:00-17:00</td>
 <td align="left">Exam.</td>
 </tr>
 <tr class="even">
-<td align="left">fredag, 2019-01-11</td>
-<td align="left">09:15-12:00</td>
-<td align="left">Project supervision</td>
+<td align="left">Wednesday, 2020-01-15</td>
+<td align="left">13:00-16:00</td>
+<td align="left">Re-exam</td>
 </tr>
 <tr class="odd">
-<td align="left">tisdag, 2019-01-15</td>
-<td align="left">09:00-16:00</td>
+<td align="left">Friday, 2020-01-17</td>
+<td align="left">09:00-15:00</td>
 <td align="left">Project presentation.</td>
 </tr>
 </tbody>
@@ -326,6 +418,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
