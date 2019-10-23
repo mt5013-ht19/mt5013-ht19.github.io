@@ -8,7 +8,7 @@ This is the course web-site for Statistical Data Processing ([MT5013](https://si
 Examination constists of
 
  * [Weekly individual homework assignments with sharp deadlines and peer review.](HW.html)
- * [An electronic exam (date to be announced).](exam.html)
+ * [An electronic exam (date: 2019-12-18).](exam.html)
  * [An individual project.](project.html)
  
  Note that DataCamp assignments are not part of the examination.
