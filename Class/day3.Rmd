@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 Read [R4DS](http://r4ds.had.co.nz/) chapters 5.6-5.7, 3.7-3.10.
 
 Solve the *Grouping and Summarizing* and *Types of vizualisations* chapters of the 
-[Introduction to the Tidyverse](https://www.datacamp.com/courses/introduction-to-the-tidyverse) course at [DataCamp](https://www.datacamp.com/enterprise/mt5013-ht18/assignments).
+[Introduction to the Tidyverse](https://www.datacamp.com/courses/introduction-to-the-tidyverse) course at [DataCamp](https://www.datacamp.com/enterprise/mt5013-ht19/assignments).
 
 ## During class
 

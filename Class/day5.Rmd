@@ -10,7 +10,7 @@ output:
 
 Read [R4DS](http://r4ds.had.co.nz/) chapter 12.
 
-Solve *Introduction and exploring raw data* and *Tidying data* at [DataCamp](https://www.datacamp.com/enterprise/mt5013-ht18/assignments).
+Solve *Introduction and exploring raw data* and *Tidying data* of the *Cleaning Data in R* course at [DataCamp](https://www.datacamp.com/enterprise/mt5013-ht19/assignments).
 
 ## During class
 

@@ -54,7 +54,7 @@ remove_url_from_topics <- function(topics, from_lecture_number=1) {
 }
 
 ##Remove URLs. Increment this for every lecture we do.
-from_lecture_number <- 3
+from_lecture_number <- 3#length(topics) 
 topics <- remove_url_from_topics(topics, from_lecture_number=from_lecture_number)
 ```
 
@@ -62,5 +62,5 @@ topics <- remove_url_from_topics(topics, from_lecture_number=from_lecture_number
 cat(paste0("<p>The schedule of the MT5013 HT2019 course is automatically fetched from [TimeEdit](",stringr::str_replace(TimeEdit_URL,"\\.json",""),").<br><br></p>"))
 ```
 ```{r KABLESCHEDULE, echo = FALSE}
-kable(data.frame(Day = paste(datum$veckodag, datum$startdate, sep = ", "), Time = datum$tid, Topic = topics))
+kable(data.frame(Lecture = c(seq_len(length(topics)-3),rep("",2),"15"), Day = paste(datum$veckodag, datum$startdate, sep = ", "), Time = datum$tid, Topic = topics))
 ```

@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 Read [R4DS](http://r4ds.had.co.nz/) chapter 7.
 
-Solve *Exploring Categorical Data* and *Exploring Numerical Data* at [DataCamp](https://www.datacamp.com/enterprise/mt5013-ht18/assignments).
+Solve *Exploring Categorical Data* and *Exploring Numerical Data* of the *Exploratory Data Analysis* course at [DataCamp](https://www.datacamp.com/enterprise/mt5013-ht18/assignments).
 
 ## During class
 
