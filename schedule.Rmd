@@ -58,7 +58,7 @@ topics <- remove_url_from_topics(topics, lecture_number= 1)
 ```
 
 ```{r TIMEEDIT, echo = FALSE, message=FALSE, warning=FALSE, results="asis"}
-cat(paste0("The schedule of the MT5013 HT2019 course is automatically fetched from [TimeEdit](",stringr::str_replace(TimeEdit_URL,"\\.json",""),")<p>"))
+cat(paste0("<p>The schedule of the MT5013 HT2019 course is automatically fetched from [TimeEdit](",stringr::str_replace(TimeEdit_URL,"\\.json",""),").<br><br></p>"))
 ```
 ```{r KABLESCHEDULE, echo = FALSE}
 kable(data.frame(Day = paste(datum$veckodag, datum$startdate, sep = ", "), Time = datum$tid, Topic = topics))
