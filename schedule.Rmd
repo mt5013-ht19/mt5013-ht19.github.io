@@ -1,5 +1,7 @@
 ---
 title: "Schedule HT18"
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
@@ -19,8 +21,8 @@ datum <- unique(fromJSON(TimeEdit_URL, flatten = TRUE)$reservations) %>%
     select(veckodag, startdate, tid) %>% 
     distinct() # %>% apply(., 1, paste, collapse = ", ")
 topics <- c(
-    "[Introduction. Software, GitHub and Markdown.](Class/day1.html) [[Slides]](slides/slide1.html)",
-    "[Tidyverse: Basic dplyr and ggplot2.](Class/day2.html) [[Slides]](slides/slide2.html)",
+    "[Introduction. Software, GitHub and Markdown.](Class/day1.html) ", #[[Slides]](slides/slide1.html)
+    "[Tidyverse: Basic dplyr and ggplot2.](Class/day2.html)", #[[Slides]](slides/slide2.html)
     "[Tidyverse: group_by and summarise, more ggplot2.](Class/day3.html)",
     "[Exploratory data analysis](Class/day4.html)",
     "[Cleaning data: Tidy data. Long to wide and back.](Class/day5.html)",
@@ -30,11 +32,29 @@ topics <- c(
     "[Text data: Regular expressions.](Class/day9.html)",
     "[Using APIs: httr, JSON and XML.](Class/day10.html)",
     "[Web-scraping: Basic rvest.](Class/day11.html)",
-    "[R Programming: Programming with functions.](Class/day12.html)",
+    "[R Programming: Programming with functions.](Class/day12.html)<br>09:15-10:15 Guest lecture: Magnus Gudmundson, Watercircles",
     "[R Programming: Functional programming with purrr.](Class/day13.html)",
     "[Presenting: Principles of visualisation.](Class/day14.html)",
     "Exam.",
     "Re-exam",
     "Project presentation.")
+
+##
+##Remove all links from topics. 
+##@param topics Vector of characters containing the lecture info
+##@param lecture_number First lecture number to remove URLs from.
+##
+remove_url_from_topics <- function(topics, lecture_number=1) {
+    stopifnot(lecture_number>0)
+    
+    result <- stringr::str_replace(topics[lecture_number:length(topics)], "\\([^)]*\\)", "")
+    result <- stringr::str_replace(result, "\\[([^)]*)\\]", "\\1")
+    
+    return(c(topics[seq_len(lecture_number-1)], result))
+}
+
+##Remove URLs. Increment this for every lecture we do.
+topics <- remove_url_from_topics(topics, lecture_number= 1)
+
 kable(data.frame(Day = paste(datum$veckodag, datum$startdate, sep = ", "), Time = datum$tid, Topic = topics))
 ```
