@@ -2,7 +2,11 @@
 title: "Welcome to MT5013"
 ---
 
-This is the course web-site for Statistical Data Processing ([MT5013](https://sisu.it.su.se/search/archive_info/MT5013)) at the [department of Mathematics](http://www.math.su.se/), [Stockholm University](http://www.su.se/). The course gives and introduction to obtaining, wrangling, exploring and visualising data using R. Main litterature will be [R for Data Science](http://r4ds.had.co.nz/index.html) by Grolemund and Wickham complemented by courses from [DataCamp](https://www.datacamp.com/home).
+This is the course web-site for Statistical Data Processing ([MT5013](https://sisu.it.su.se/search/archive_info/MT5013)) at the [department of Mathematics](http://www.math.su.se/), [Stockholm University](http://www.su.se/). The course gives and introduction to obtaining, wrangling, exploring and visualising data using R. Main litterature will be the book [R for Data Science](http://r4ds.had.co.nz/index.html) by Grolemund and Wickham complemented by courses from [DataCamp](https://www.datacamp.com/home).
+
+### Moodle page
+
+The github course page is supplemented by a [Moodle page](https://kurser.math.su.se/course/view.php?id=808), which requires SU login. 
 
 ### Examination
 Examination constists of

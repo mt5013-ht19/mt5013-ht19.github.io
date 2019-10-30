@@ -3,7 +3,7 @@ title: "Individual homework (3 hp, grade PASS/FAIL.)"
 output: html_document
 ---
 
-Six homework assignments should be solved and uploaded on GitHub at the latest 24:00 on their respective date of deadline. These should be solved individually. The assignments also involves peer review of another students solution.
+Six homework assignments should be solved and uploaded on GitHub at the latest 23:59 on their respective date of deadline. These should be solved individually. The assignments also involves peer review of another students solution.
 
 
 ```{r, echo =FALSE}
