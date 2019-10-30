@@ -204,22 +204,25 @@ summary {
 <div id="do-this-before-class" class="section level2">
 <h2>Do this before class</h2>
 <p>Read <a href="http://r4ds.had.co.nz/">R4DS</a> chapters 3.1-3.6, 5.1-5.5</p>
-<p>Complete assignments <em>Data wrangling</em> and <em>Data visualization</em> (first two chapters of <a href="https://www.datacamp.com/courses/introduction-to-the-tidyverse">Introduction to the Tidyverse</a>) at <a href="https://www.datacamp.com/enterprise/mt5013-ht18/assignments">DataCamp</a>.</p>
+<p>Complete assignments <em>Data wrangling</em> and <em>Data visualization</em> (first two chapters of <a href="https://www.datacamp.com/courses/introduction-to-the-tidyverse">Introduction to the Tidyverse</a>) at <a href="https://www.datacamp.com/enterprise/statistical-data-processing-mt5013/assignments">DataCamp</a>.</p>
 </div>
 <div id="class-activities" class="section level2">
 <h2>Class activities</h2>
-<p>Start by creating a new R-project “Classroom” that you will use for your class activities. Some activities will require data or scripts from the repo <a href="https://github.com/MT5013-HT18/Class_files"><code>Class_files</code></a>, we therefore recommend that you clone this into a subfolder of your <code>Classroom</code> directory. Now create a new R Markdown document <code>Class1.Rmd</code> where you will do your work for this class.</p>
+<p>Start by creating a new R-project “Classroom” that you will use for your class activities. Some activities will require data or scripts from the repo <a href="https://github.com/MT5013-HT19/Class_files"><code>Class_files</code></a>, we therefore recommend that you clone this into a subfolder of your <code>Classroom</code> directory. Now create a new R Markdown document <code>Class1.Rmd</code> where you will do your work for this class.</p>
 </div>
 <div id="systembolagets-assortment" class="section level1">
 <h1>Systembolaget’s assortment</h1>
-<p><a href="https://www.systembolaget.se/">Systembolaget</a>’s assortment of beverages from 2018-10-18 is available in the file <a href="https://github.com/MT5013-HT18/Class_files/blob/master/systembolaget2018-10-08.csv"><code>Class_files/systembolaget2018-10-08.csv</code></a>. It is downloaded from <a href="https://www.systembolaget.se/api">Systembolaget’s public API</a> and saved in csv-format by the script <a href="https://github.com/MT5013-HT18/Class_files/blob/master/Systembolaget.R"><code>Class_files/Systembolaget.R</code></a>. Load its contents by</p>
+<p><a href="https://www.systembolaget.se/">Systembolaget</a>’s assortment of beverages from 2019-10-31 is available in the file <a href="https://github.com/MT5013-HT19/Class_files/blob/master/systembolaget2019-10-31.csv"><code>Class_files/systembolaget2019-10-31.csv</code></a>. It is downloaded from <a href="https://www.systembolaget.se/api">Systembolaget’s public API</a> and saved in csv-format by the script <a href="https://github.com/MT5013-HT19/Class_files/blob/master/Systembolaget.R"><code>Class_files/Systembolaget.R</code></a>. Load its contents by</p>
+<pre class="r"><code># Define date when scraping took place - can then be easily changed.
+date_systembolaget_scrape &lt;- &quot;2019-10-31&quot; #2018-10-18&quot;</code></pre>
 <pre class="r"><code>library(tidyverse)
-Sortiment_hela &lt;- read_csv(&quot;Class_files/systembolaget2018-10-08.csv&quot;)</code></pre>
+file_name &lt;- paste0(&quot;systembolaget&quot;,date_systembolaget_scrape,&quot;.csv&quot;)
+Sortiment_hela &lt;- read_csv(file.path(&quot;Class_files&quot;, file_name))</code></pre>
 <div id="exercises-training-of-arrange-filter-mutate-select" class="section level3">
 <h3>Exercises (training of <code>arrange</code>, <code>filter</code>, <code>mutate</code>, <code>select</code>, <code>%&gt;%</code>)</h3>
 <ul>
 <li><p>The variable <code>Alkoholhalt</code> (alcohol by volume) has been classified as <code>character</code> by <code>read_delim</code>, since it contains a percent sign. Convert it to numeric using <code>mutate</code> by first removing the percent sign (e.g. with <code>gsub</code>) and then transform with <code>as.numeric</code>.</p></li>
-<li><p>A few wines have been labelled as <code>Röda</code> and <code>Vita</code> instead of <code>Rött vin</code> (red wine) respektive <code>Vitt vin</code> (white wine) in the <code>Varugrupp</code> (group of products) column. Fix this, e.g. by using <code>mutate</code> and <code>ifelse</code>.</p></li>
+<li><p>A few wines are labelled as <code>Röda - lägre alkoholhalt</code> and <code>Vita - lägre alkoholhalt</code> instead of <code>Rött vin</code> (red wine) respektive <code>Vitt vin</code> (white wine) in the <code>Varugrupp</code> (group of products) column. Merge these wines into <code>Rött vin</code> and <code>Vitt vin</code>, respectively, e.g. by using <code>mutate</code> and <code>ifelse</code>.</p></li>
 <li><p>What beverage has the highest <code>PrisPerLiter</code>? Display the answer (the <code>Namn</code> of the beverage) as dynamically coded in the text body of your <code>.Rmd</code>-document.</p></li>
 <li><p>Create a new data frame <code>Sortiment_ord</code> with the regular product range (where <code>SortimentText</code> equals <code>Ordinarie sortiment</code>). Make a table (with <code>kable</code> from the <code>knitr</code>-library) of the 10 most expensive (<code>PrisPerLiter</code>) beverages from this range. Use <code>select</code> to select suitable columns for the table.</p></li>
 <li><p>if you have not already done so, write the code from the previous excercise using a sequence of pipes (<code>%&gt;%</code>).</p></li>
@@ -231,7 +234,7 @@ Sortiment_hela &lt;- read_csv(&quot;Class_files/systembolaget2018-10-08.csv&quot
 <ul>
 <li>Plot <code>PrisPerLiter</code> against <code>Alkoholhalt</code>, color the points by <code>Varugrupp</code> and consider using a log-scale for <code>PrisPerLiter</code>.</li>
 <li>Plot <code>PrisPerLiter</code> (possibly on a log-scale) against <code>Varugrupp</code>. Consider <code>coord_flip</code> to improve readability.</li>
-<li>For the groups of products <code>c(&quot;Vitt vin&quot;, &quot;Rött vin&quot;, &quot;Rosévin&quot;, &quot;Mousserande vin&quot;)</code> of vintage (<code>Argang</code>) 2010-2017, plot <code>PrisPerLiter</code> against <code>Argang</code>. Try both using a <code>facet</code> for each group and coloring by group in the same facet.</li>
+<li>For the groups of products <code>c(&quot;Vitt vin&quot;, &quot;Rött vin&quot;, &quot;Rosévin&quot;, &quot;Mousserande vin&quot;)</code> of vintage (<code>Argang</code>) 2010-2019, plot <code>PrisPerLiter</code> against <code>Argang</code>. Try both using a <code>facet</code> for each group and coloring by group in the same facet.</li>
 </ul>
 </div>
 <div id="further-excercises" class="section level3">
@@ -243,7 +246,7 @@ Sortiment_hela &lt;- read_csv(&quot;Class_files/systembolaget2018-10-08.csv&quot
 </div>
 <div id="film-events" class="section level1">
 <h1>Film events</h1>
-<p><a href="https://www.stockholmfilmfestival.se/en">Stockholm international film festival</a> just started. In <a href="https://github.com/MT5013-HT18/Class_files/blob/master/Film_events_2018-11-07.csv"><code>Class_files/Film_events_2018-11-07.csv</code></a> you will find their event schedule as of this morning.</p>
+<p>The <a href="https://www.stockholmfilmfestival.se/en">Stockholm international film festival</a> takes place early November each year. In <a href="https://github.com/MT5013-HT19/Class_files/blob/master/Film_events_2018-11-07.csv"><code>Class_files/Film_events_2018-11-07.csv</code></a> you will find their event schedule for the 2018 edition scraped on 2018-11-07. The data were obtained by a query using the <a href="http://api.stockholmfilmfestival.se/">Stockholm Film Festival API for developers</a>.</p>
 <div id="exercises-training-of-arrange-filter-mutate-select-1" class="section level3">
 <h3>Exercises (training of <code>arrange</code>, <code>filter</code>, <code>mutate</code>, <code>select</code>, <code>%&gt;%</code>)</h3>
 <ul>
@@ -255,7 +258,7 @@ Sortiment_hela &lt;- read_csv(&quot;Class_files/systembolaget2018-10-08.csv&quot
 </div>
 <div id="olympic-winter-medals" class="section level1">
 <h1>Olympic winter medals</h1>
-<p>The file <a href="https://github.com/MT5013-HT18/Class_files/blob/master/Winter_medals2018-09-26.csv"><code>Class_files/Winter_medals2018-09-26.csv</code></a> contains the number of medals per country and olympic year at the winter olympics since 1980 together with the total population of the country. The data set is scraped from Wikipedia using the script <a href="https://github.com/MT5013-HT18/Class_files/blob/master/Medal_table.R"><code>Class_files/Winter_medals.R</code></a> which contains more information, in particular on countries that has been split or joined during the period.</p>
+<p>The file <a href="https://github.com/MT5013-HT19/Class_files/blob/master/Winter_medals2019-10-30.csv"><code>Class_files/Winter_medals2019-10-30.csv</code></a> contains the number of medals per country and olympic year at the winter olympics since 1980 together with the total population of the country. The data set is scraped from Wikipedia using the script <a href="https://github.com/MT5013-HT19/Class_files/blob/master/Medal_table.R"><code>Class_files/Winter_medals.R</code></a> which contains more information, in particular on countries that has been split or joined during the period.</p>
 <p>Load the file using</p>
 <pre class="r"><code>winter_medals &lt;- read_csv(&quot;Class_files/Winter_medals2018-09-26.csv&quot;)</code></pre>
 <div id="exercises-training-of-arrange-filter-mutate-select-2" class="section level3">
@@ -276,7 +279,7 @@ Sortiment_hela &lt;- read_csv(&quot;Class_files/systembolaget2018-10-08.csv&quot
 </div>
 <div id="gapminder" class="section level1">
 <h1>Gapminder</h1>
-<p>Use <code>ggplot</code> to recreate (static versions) of some figures from <a href="https://www.ted.com/speakers/hans_rosling">Hans Rosling’s talks</a>. Data is available in package <code>gapminder</code>.</p>
+<p>Use <code>ggplot</code> to recreate (static versions) of some figures from <a href="https://www.ted.com/speakers/hans_rosling">Hans Rosling’s talks</a>. Data is available in the package <code>gapminder</code>.</p>
 </div>
 
 

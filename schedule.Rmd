@@ -42,19 +42,20 @@ topics <- c(
 ##
 ##Remove all links from topics. 
 ##@param topics Vector of characters containing the lecture info
-##@param lecture_number First lecture number to remove URLs from.
+##@param from_lecture_number First lecture number to remove URLs from.
 ##
-remove_url_from_topics <- function(topics, lecture_number=1) {
-    stopifnot(lecture_number>0)
+remove_url_from_topics <- function(topics, from_lecture_number=1) {
+    stopifnot(from_lecture_number>0)
     
-    result <- stringr::str_replace(topics[lecture_number:length(topics)], "\\([^)]*\\)", "")
+    result <- stringr::str_replace(topics[from_lecture_number:length(topics)], "\\([^)]*\\)", "")
     result <- stringr::str_replace(result, "\\[([^)]*)\\]", "\\1")
     
-    return(c(topics[seq_len(lecture_number-1)], result))
+    return(c(topics[seq_len(from_lecture_number-1)], result))
 }
 
 ##Remove URLs. Increment this for every lecture we do.
-topics <- remove_url_from_topics(topics, lecture_number= 1)
+from_lecture_number <- 3
+topics <- remove_url_from_topics(topics, from_lecture_number=from_lecture_number)
 ```
 
 ```{r TIMEEDIT, echo = FALSE, message=FALSE, warning=FALSE, results="asis"}

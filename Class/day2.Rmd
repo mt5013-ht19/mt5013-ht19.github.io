@@ -4,33 +4,42 @@ output:
   html_document:
     toc: true
     toc_depth: 4    
+editor_options: 
+  chunk_output_type: console
 ---
 
 ## Do this before class
 
 Read [R4DS](http://r4ds.had.co.nz/) chapters 3.1-3.6, 5.1-5.5
 
-Complete assignments *Data wrangling* and *Data visualization* (first two chapters of [Introduction to the Tidyverse](https://www.datacamp.com/courses/introduction-to-the-tidyverse)) at [DataCamp](https://www.datacamp.com/enterprise/mt5013-ht18/assignments).
+Complete assignments *Data wrangling* and *Data visualization* (first two chapters of [Introduction to the Tidyverse](https://www.datacamp.com/courses/introduction-to-the-tidyverse)) at [DataCamp](https://www.datacamp.com/enterprise/statistical-data-processing-mt5013/assignments).
 
 ## Class activities
 
-Start by creating a new R-project "Classroom" that you will use for your class activities. Some activities will require data or scripts from the repo [`Class_files`](https://github.com/MT5013-HT18/Class_files), we therefore recommend that you clone this into a subfolder of your `Classroom` directory. Now create a new R Markdown document `Class1.Rmd` where you will do your work for this class.
+Start by creating a new R-project "Classroom" that you will use for your class activities. Some activities will require data or scripts from the repo [`Class_files`](https://github.com/MT5013-HT19/Class_files), we therefore recommend that you clone this into a subfolder of your `Classroom` directory. Now create a new R Markdown document `Class1.Rmd` where you will do your work for this class.
 
 # Systembolaget's assortment
+```{r DATE_SCRAPE, echo=FALSE}
+# Define date when scraping took place - can then be easily changed.
+date_systembolaget_scrape <- "2019-10-31"
+```
 
-[Systembolaget](https://www.systembolaget.se/)'s assortment of beverages from 2018-10-18 is available in the file [`Class_files/systembolaget2018-10-08.csv`](https://github.com/MT5013-HT18/Class_files/blob/master/systembolaget2018-10-08.csv). It is downloaded from [Systembolaget's public API](https://www.systembolaget.se/api) and saved in csv-format by the script [`Class_files/Systembolaget.R`](https://github.com/MT5013-HT18/Class_files/blob/master/Systembolaget.R). Load its contents by
+[Systembolaget](https://www.systembolaget.se/)'s assortment of beverages from `r date_systembolaget_scrape` is available in the file `r paste0("[\x60Class_files/systembolaget",date_systembolaget_scrape,".csv\x60](https://github.com/MT5013-HT19/Class_files/blob/master/systembolaget",date_systembolaget_scrape,".csv)")`. It is downloaded from [Systembolaget's public API](https://www.systembolaget.se/api) and saved in csv-format by the script [`Class_files/Systembolaget.R`](https://github.com/MT5013-HT19/Class_files/blob/master/Systembolaget.R). Load its contents by
+
+```{r DATE_SCRAPE_SHOW, ref.label='DATE_SCRAPE'}
+```
 
 ```{r, eval = FALSE}
 library(tidyverse)
-Sortiment_hela <- read_csv("Class_files/systembolaget2018-10-08.csv")
+file_name <- paste0("systembolaget",date_systembolaget_scrape,".csv")
+Sortiment_hela <- read_csv(file.path("Class_files", file_name))
 ```
-
 
 ### Exercises (training of `arrange`, `filter`, `mutate`, `select`, `%>%`)
 
 * The variable  `Alkoholhalt` (alcohol by volume) has been classified as `character` by `read_delim`, since it contains a percent sign. Convert it to numeric using `mutate` by first removing the percent sign (e.g. with `gsub`) and then transform with `as.numeric`.
 
-* A few wines have been labelled as `Röda` and `Vita` instead of `Rött vin` (red wine) respektive `Vitt vin` (white wine) in the `Varugrupp` (group of products) column. Fix this, e.g. by using `mutate` and `ifelse`.
+* A few wines are labelled as `Röda - lägre alkoholhalt` and `Vita - lägre alkoholhalt` instead of `Rött vin` (red wine) respektive `Vitt vin` (white wine) in the `Varugrupp` (group of products) column. Merge these wines into `Rött vin` and `Vitt vin`, respectively, e.g. by using `mutate` and `ifelse`.
 
 * What beverage has the highest `PrisPerLiter`? Display the answer (the `Namn` of the beverage) as dynamically coded in the text body of your  `.Rmd`-document.
 
@@ -44,7 +53,7 @@ For the regular product range in `Sortiment_ord`
  
 * Plot `PrisPerLiter` against `Alkoholhalt`, color the points by `Varugrupp` and consider using a log-scale for `PrisPerLiter`.
 * Plot `PrisPerLiter` (possibly on a log-scale) against `Varugrupp`. Consider `coord_flip` to improve readability.
-* For the  groups of products `c("Vitt vin", "Rött vin", "Rosévin", "Mousserande vin")` of vintage (`Argang`) 2010-2017, plot `PrisPerLiter` against `Argang`. Try both using  a `facet` for each group and coloring by group in the same facet.
+* For the  groups of products `c("Vitt vin", "Rött vin", "Rosévin", "Mousserande vin")` of vintage (`Argang`) 2010-2019, plot `PrisPerLiter` against `Argang`. Try both using  a `facet` for each group and coloring by group in the same facet.
 
 ### Further excercises
 
@@ -52,7 +61,7 @@ For the regular product range in `Sortiment_ord`
 
 # Film events
 
-[Stockholm international film festival](https://www.stockholmfilmfestival.se/en) just started. In [`Class_files/Film_events_2018-11-07.csv`](https://github.com/MT5013-HT18/Class_files/blob/master/Film_events_2018-11-07.csv) you will find their event schedule as of this morning.
+The [Stockholm international film festival](https://www.stockholmfilmfestival.se/en) takes place early November each year. In [`Class_files/Film_events_2018-11-07.csv`](https://github.com/MT5013-HT19/Class_files/blob/master/Film_events_2018-11-07.csv) you will find their event schedule for the 2018 edition scraped on 2018-11-07. The data were obtained by a query using the [Stockholm Film Festival API for developers](http://api.stockholmfilmfestival.se/).
 
 ### Exercises (training of `arrange`, `filter`, `mutate`, `select`, `%>%`)
 
@@ -62,7 +71,7 @@ For the regular product range in `Sortiment_ord`
 
 # Olympic winter medals 
 
-The file [`Class_files/Winter_medals2018-09-26.csv`](https://github.com/MT5013-HT18/Class_files/blob/master/Winter_medals2018-09-26.csv) contains the number of medals per country and olympic year at the winter olympics since 1980 together with the total population of the country. The data set is scraped from Wikipedia using the script [`Class_files/Winter_medals.R`](https://github.com/MT5013-HT18/Class_files/blob/master/Medal_table.R) which contains more information, in particular on countries that has been split or joined during the period.
+The file [`Class_files/Winter_medals2019-10-30.csv`](https://github.com/MT5013-HT19/Class_files/blob/master/Winter_medals2019-10-30.csv) contains the number of medals per country and olympic year at the winter olympics since 1980 together with the total population of the country. The data set is scraped from Wikipedia using the script [`Class_files/Winter_medals.R`](https://github.com/MT5013-HT19/Class_files/blob/master/Medal_table.R) which contains more information, in particular on countries that has been split or joined during the period.
 
 Load the file using
 ```{r, eval = FALSE}
@@ -83,4 +92,4 @@ winter_medals <- read_csv("Class_files/Winter_medals2018-09-26.csv")
 
 # Gapminder 
 
-Use `ggplot` to recreate (static versions) of some figures from [Hans Rosling's talks](https://www.ted.com/speakers/hans_rosling). Data is available in  package `gapminder`.
+Use `ggplot` to recreate (static versions) of some figures from [Hans Rosling's talks](https://www.ted.com/speakers/hans_rosling). Data is available in the package `gapminder`.
