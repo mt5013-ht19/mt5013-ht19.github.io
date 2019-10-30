@@ -212,9 +212,9 @@ summary {
 </div>
 <div id="systembolagets-assortment" class="section level1">
 <h1>Systembolaget’s assortment</h1>
-<p><a href="https://www.systembolaget.se/">Systembolaget</a>’s assortment of beverages from 2019-10-31 is available in the file <a href="https://github.com/MT5013-HT19/Class_files/blob/master/systembolaget2019-10-31.csv"><code>Class_files/systembolaget2019-10-31.csv</code></a>. It is downloaded from <a href="https://www.systembolaget.se/api">Systembolaget’s public API</a> and saved in csv-format by the script <a href="https://github.com/MT5013-HT19/Class_files/blob/master/Systembolaget.R"><code>Class_files/Systembolaget.R</code></a>. Load its contents by</p>
+<p><a href="https://www.systembolaget.se/">Systembolaget</a>’s assortment of beverages from 2019-10-30 is available in the file <a href="https://github.com/MT5013-HT19/Class_files/blob/master/systembolaget2019-10-30.csv"><code>Class_files/systembolaget2019-10-30.csv</code></a>. It is downloaded from <a href="https://www.systembolaget.se/api">Systembolaget’s public API</a> and saved in csv-format by the script <a href="https://github.com/MT5013-HT19/Class_files/blob/master/Systembolaget.R"><code>Class_files/Systembolaget.R</code></a>. Load its contents by</p>
 <pre class="r"><code># Define date when scraping took place - can then be easily changed.
-date_systembolaget_scrape &lt;- &quot;2019-10-31&quot; #2018-10-18&quot;</code></pre>
+date_systembolaget_scrape &lt;- &quot;2019-10-30&quot;</code></pre>
 <pre class="r"><code>library(tidyverse)
 file_name &lt;- paste0(&quot;systembolaget&quot;,date_systembolaget_scrape,&quot;.csv&quot;)
 Sortiment_hela &lt;- read_csv(file.path(&quot;Class_files&quot;, file_name))</code></pre>

@@ -21,7 +21,7 @@ Start by creating a new R-project "Classroom" that you will use for your class a
 # Systembolaget's assortment
 ```{r DATE_SCRAPE, echo=FALSE}
 # Define date when scraping took place - can then be easily changed.
-date_systembolaget_scrape <- "2019-10-31"
+date_systembolaget_scrape <- "2019-10-30"
 ```
 
 [Systembolaget](https://www.systembolaget.se/)'s assortment of beverages from `r date_systembolaget_scrape` is available in the file `r paste0("[\x60Class_files/systembolaget",date_systembolaget_scrape,".csv\x60](https://github.com/MT5013-HT19/Class_files/blob/master/systembolaget",date_systembolaget_scrape,".csv)")`. It is downloaded from [Systembolaget's public API](https://www.systembolaget.se/api) and saved in csv-format by the script [`Class_files/Systembolaget.R`](https://github.com/MT5013-HT19/Class_files/blob/master/Systembolaget.R). Load its contents by
