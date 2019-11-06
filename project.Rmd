@@ -4,7 +4,7 @@ output: html_document
 ---
 
 The final part of the course involves an individual project, taking shape as a data blog post. This should illustrate an issue/problem using an unique data set collected by yourself and at the same time illustrate the use of tools taught in this course. Deadline for the project is **2019-01-15** when it will also be presented orally (5 minutes presentation). 
-
+Note: Presence is compulsory for the session you are presenting in.
 
 The below blog posts could be viewed as inspiration or to give a rough idea of the amount of work expexted in the projects.
 
