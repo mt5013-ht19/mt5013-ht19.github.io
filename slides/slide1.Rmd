@@ -1,12 +1,12 @@
 ---
 title: "Statistical Data Processing <br> MT5013"
 subtitle: "Day 1"
-author: "Martin Sköld"
+author: "Michael Höhle (based on work by Martin Sköld)"
 output:
   ioslides_presentation:
     logo: SU_logo_CMYK.png
     incremental: TRUE
-    css: slides.css
+    # css: slides.css
 
 ---
 
