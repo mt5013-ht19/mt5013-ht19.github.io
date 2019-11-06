@@ -1,0 +1,111 @@
+Grading criteria of the MT5013 course - ht2019
+================
+Michael Höhle
+2019-11-06
+
+The present document operationalises the description found in the
+[course plan](https://sisu.it.su.se/pdf_creator/33466/44998), which
+consists of 3 parts:
+
+  - Homework lab exercises (3 ECTS)
+  - Written exam (1.5 ECTS)
+  - Project work (3 ECTS)
+
+## Criterion for each submodule
+
+### Homework lab exercises
+
+The pass/fail grade is formed using the AND operation on the 6 binary
+homework grades.
+
+### Exam
+
+Linear point scale with thresholds determining the grades from A-F. See
+the old exam for an example.
+
+### Project work
+
+Combination of points in several categories (compare with the course
+goals, but also readability of the report and pitching the project in
+the oral presentation). The specific criterion will be announced when
+the project work is released. The point scale is then discretized. This
+leads to one grade on the A-F scale.
+
+## Combining the three grades
+
+One has to get a pass grade (i.e. ‘G’ for the binary grade and ‘E’ or
+better for the character grade) in each of the three momenter to pass
+the entire course. Subject to the homework labs being passed, a weighted
+mean of the grade from the exam and project is performed using the ECTS
+points of each ‘moment’ as weight.
+
+In R code:
+
+``` r
+######################################################################
+#'
+#' Illustration of the operationalized grading criteria of the MT5013
+#' course.
+#'
+#' Author: Michael Höhle
+#' Date: 2019-11-06
+######################################################################
+
+suppressPackageStartupMessages(library(tidyverse))
+
+
+#' Define the measuring scales (character grade and pass/fail grade)
+betyg_char <- rev(letters[1:6])
+betyg_ug <- c("u","g")
+
+#' Function to convert alphabetical grade into numeric scale 0..5
+convert_char_to_numeric <- function(char_grade) {
+  as.numeric(factor(char_grade, levels=betyg_char)) - 1
+}
+
+#' Function to convert pass/fail into numeric scale 0..1
+convert_ug_to_numeric <- function(grade) {
+  case_when( grade == "u" ~ 0, grade == "g" ~ 1)
+}
+
+#' Combine by weighting according to the ECTS points of each moment
+weighted_grade <- function(lab, exam, projekt) {
+  # Make a vector containing the three components
+  grade_vec <- c(lab=convert_ug_to_numeric(lab),
+                 exam=convert_char_to_numeric(exam),
+                 projekt=convert_char_to_numeric(projekt))
+  # Check if parts are passed
+  pass_all <- all( grade_vec > 0)
+  # Weights for the combination
+  slutbetyg_weights <- c(lab=0, exam=1.5, projekt=3)
+  # Calculate weighted_grade if pass_all, otherwise the grade is 'f'
+  weighted_grade <- pass_all * sum(slutbetyg_weights/sum(slutbetyg_weights) * grade_vec)
+  # Return result
+  return( weighted_grade ) 
+}
+
+#' Function to convert weighted grade into a character grade
+convert_numeric_to_char <- function(weighted_grade) {
+  return(betyg_char[round(weighted_grade) + 1])
+}
+
+#' Helper function putting the weighted_grade and
+#' convert_numeric_to_char into sequence.
+
+combined_grade <- function(lab, exam, projekt) {
+  return(convert_numeric_to_char(weighted_grade(lab, exam, projekt)))
+}
+```
+
+``` r
+#' Make a data.frame with all possible grades
+grade_df <- expand.grid(lab=betyg_ug, exam=betyg_char, projekt=betyg_char)
+
+#' Calculate the weighted grade and the resulting character grade
+#' for each possible combination of the three grades.
+grade_df <- grade_df %>% arrange(desc(lab), desc(exam), desc(projekt)) %>% rowwise %>%
+    mutate(weighted_grade = weighted_grade(lab, exam, projekt),
+           final_grade = convert_numeric_to_char(weighted_grade))
+```
+
+### Result
