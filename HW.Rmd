@@ -1,5 +1,5 @@
 ---
-title: "Individual homework (3 hp, grade PASS/FAIL.)"
+title: "Individual homework (3 hp, grade: PASS/FAIL)"
 output: html_document
 ---
 
