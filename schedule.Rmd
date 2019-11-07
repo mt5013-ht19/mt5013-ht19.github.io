@@ -14,14 +14,14 @@ suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(knitr))
 
 # Byt https mot aktuell schemalänk nedan
-TimeEdit_URL <- "https://cloud.timeedit.net/su/web/stud1/ri167XQQ530Z50Qv87014gZ6y2Y7400Q5Y65Y2.json"
+TimeEdit_URL <- "https://cloud.timeedit.net/su/web/stud1/ri107455X48Z06Q5Z16g3Y05y5006Y48Q02gQY6Q55727.json"
 datum <- unique(fromJSON(TimeEdit_URL, flatten = TRUE)$reservations) %>% 
     mutate(veckodag = weekdays(as.Date(startdate)), 
            tid = paste(starttime, endtime, sep = "-")) %>% 
     select(veckodag, startdate, tid) %>% 
     distinct() # %>% apply(., 1, paste, collapse = ", ")
 topics <- c(
-    "[Introduction. Software, GitHub and Markdown.](Class/day1.html) ", #[[Slides]](slides/slide1.html)
+    "[Introduction. Software, GitHub and Markdown.](Class/day1.html) [[Slides](slides/slide1.html)]",
     "[Tidyverse: Basic dplyr and ggplot2.](Class/day2.html)", #[[Slides]](slides/slide2.html)
     "[Tidyverse: group_by and summarise, more ggplot2.](Class/day3.html)",
     "[Exploratory data analysis](Class/day4.html)",
