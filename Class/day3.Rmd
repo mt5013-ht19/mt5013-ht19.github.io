@@ -29,15 +29,15 @@ The script [`Class_files/SR_music.R`](https://github.com/MT5013-HT18/Class_files
 source("Class_files/SR_music.R")
 ```
 ```{r, echo = FALSE}
-source("../../Class_files_HT18/SR_music.R")
+source("../../Class_files/SR_music.R")
 ```
-and grab e.g. the songs on P3 (channel 164) at the turn of last year by
+and grab e.g. the songs on P3 (channel 164) at the turn of 2018, i.e. 2018-12-31, by
 ```{r}
-get_SR_music(channel = 164, date = "2017-12-31") %>% select(title, artist, start_time) %>% head()
+get_SR_music(channel = 164, date = "2018-12-31") %>% select(title, artist, start_time) %>% head()
 ```
-If you want multiple dates, the `map`-functions from the `purrr`-package (included in the `tidyverse`) are convenient (more about these later on in the course). Grabbing music played from e.g. 2018-01-01 to 2018-01-07 into `music` is done by
+If you want multiple dates, the `map`-functions from the `purrr`-package (included in the `tidyverse`) are convenient (more about these later on in the course). Grabbing music played from e.g. 2019-01-01 to 2019-01-07 into `music` is done by
 ```{r, eval = FALSE}
-days <- seq(as.Date("2018-01-01"), as.Date("2018-01-07"), "days")
+days <- seq(as.Date("2019-01-01"), as.Date("2019-01-07"), "days")
 music <- map_df(days, get_SR_music, channel = 164)
 ```
 
@@ -52,21 +52,28 @@ music <- map_df(days, get_SR_music, channel = 164)
 * Pick a sequence of dates and visualise how the songs `start_time`s are distributed over the day. Repeat for another channel, e.g. P2 (channel 163). You can grab components of a date-time (POSIXct) object with `format` as in
 
 ```{r}
-as.POSIXct("2018-01-01 23:57:04 CET") %>% format("%H:%M")
+as.POSIXct("2019-01-01 23:57:04 CET") %>% format("%H:%M")
 ```
 for extracting the hour and minute, see `?format.POSIXct` for more examples. Note that the above code results in a value of character-type, you may want to further convert to numeric format (e.g. minutes or hours after midnight) before plotting.
+The tidyverse package for date formatting is called [`lubridate`](https://lubridate.tidyverse.org/) and has function to extract hours and minutes as well, e.g.
+```{r}
+as.POSIXct("2019-01-01 23:57:04 CET") %>% lubridate::hour()
+```
+
 
 * Visualise the number of hours spent playing music each day over a sequence of dates.
 
 ## Insurance claims from kammarkollegiet
 
-[Kammarkollegiet](https://www.kammarkollegiet.se/) is a public agency that among other things issue insurances. The file [`Class_files/claims.csv`](https://github.com/MT5013-HT18/Class_files/blob/master/claims.csv) contains data on claims from one of their personal insurances. Each claim has an unique `Claim id`, a `Claim date`, a `Closing date` and a number of `Payment`s disbursed at `Payment date`s. If the claim is not closed (there may be more payments coming) `Closing date` is given value `NA`. Null claims, i.e. claims that has been closed without payment, are not included.
+[Kammarkollegiet](https://www.kammarkollegiet.se/) is a public agency that among other things issue insurances. The file [`Class_files/claims.csv`](https://github.com/MT5013-HT19/Class_files/blob/master/claims.csv) contains data on claims from one of their personal insurances. Each claim has an unique `Claim id`, a `Claim date`, a `Closing date` and a number of `Payment`s disbursed at `Payment date`s. If the claim is not closed (there may be more payments coming) `Closing date` is given value `NA`. Null claims, i.e. claims that has been closed without payment, are not included.
 
 Read the data by
 ```{r, eval = FALSE}
 claim_data <- read_csv("Class_files/claims.csv")
 ```
-
+```{r, echo = FALSE}
+claim_data <- read_csv("../../Class_files/claims.csv")
+```
 
 ### Excercises
 
