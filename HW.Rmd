@@ -8,9 +8,8 @@ Six homework assignments should be solved and uploaded on GitHub at the latest 2
 
 ```{r, echo =FALSE}
 HW <- c(
-    #"[HW1: GitHub test-run](HW/HW1.html)",
     "[HW1: GitHub test-run](HW/HW1.html)",
-    "HW2: Basic tidyverse",
+    "[HW2: Basic tidyverse](HW/HW2.html)",
     "HW3: Working with tables",
     "HW4: Stores and products",
     "HW5: Texts and lists",

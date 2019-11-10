@@ -12,9 +12,9 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 ## Do this before class
 
-Read [R4DS](http://r4ds.had.co.nz/) chapter 7.
+Read [R4DS](http://r4ds.had.co.nz/) chapter 7 about exploratory data analysis.
 
-Solve *Exploring Categorical Data* and *Exploring Numerical Data* of the *Exploratory Data Analysis* course at [DataCamp](https://www.datacamp.com/enterprise/mt5013-ht18/assignments).
+Solve *Exploring Categorical Data* and *Exploring Numerical Data* of the *Exploratory Data Analysis* course at [DataCamp](https://www.datacamp.com/enterprise/mt5013-ht19/assignments).
 
 ## During class
 
@@ -32,15 +32,15 @@ Solve *Exploring Categorical Data* and *Exploring Numerical Data* of the *Explor
 * Recreate the following plot (Red wines in the regular range)
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
 suppressPackageStartupMessages(library(tidyverse))
-read_csv("../../Class_files_HT18/systembolaget2018-10-18.csv") %>% 
-    mutate(Alkoholhalt = as.numeric(gsub("%", "", Alkoholhalt))) %>% 
-    mutate(Varugrupp = ifelse(Varugrupp == "Röda", "Rött vin", Varugrupp)) %>% 
-    mutate(Varugrupp = ifelse(Varugrupp == "Vita", "Vitt vin", Varugrupp)) %>% 
-    filter(SortimentText == "Ordinarie sortiment") %>% 
-    filter(Varugrupp %in% c("Rött vin")) %>% 
-    filter(Argang %in% 2011:2018) %>% 
-    mutate(Argang = as.factor(Argang)) %>% 
-    ggplot(aes(x = Argang, y = PrisPerLiter))+ geom_boxplot()+ ggtitle("Red wines") +xlab("Vintage") +ylab("Price per liter")
+read_csv("../../Class_files/systembolaget2019-10-30.csv") %>%
+  mutate(Alkoholhalt = as.numeric(gsub("%", "", Alkoholhalt))) %>%
+  # mutate(Varugrupp = ifelse(Varugrupp == "Röda", "Rött vin", Varugrupp)) %>%
+  # mutate(Varugrupp = ifelse(Varugrupp == "Vita", "Vitt vin", Varugrupp)) %>%
+  filter(SortimentText == "Ordinarie sortiment") %>%
+  filter(Varugrupp %in% c("Rött vin")) %>%
+  filter(Argang %in% 2011:2018) %>%
+  mutate(Argang = as.factor(Argang)) %>%
+  ggplot(aes(x = Argang, y = PrisPerLiter)) + geom_boxplot() + ggtitle("Red wines") + xlab("Vintage") + ylab("Price per liter")
 ```
 
 * Make a `box_plot` of `PrisPerLiter` on the log-scale,with `x = Varugrupp`. Try `coord_flip` to improve readability.
@@ -50,7 +50,7 @@ read_csv("../../Class_files_HT18/systembolaget2018-10-18.csv") %>%
 
 The following code transforms the medals data to "long" format (more about this next time!) which is easier to work with in `ggplot`:
 ```{r, eval = FALSE}
-medal_long <- read_csv("Class_files/Winter_medals2018-09-26.csv") %>% 
+medal_long <- read_csv("Class_files/Winter_medals2019-10-30.csv") %>% 
     select(-Total) %>% 
     gather(Denomination, Number, c("Gold", "Silver", "Bronze"))
 ```
@@ -58,7 +58,7 @@ Check the result with `glimpse(medal_long)`. Use `group_by` and `summarise` in o
 
 ### First math course
 
-The file [`Class_files/MM2001_results.csv`](https://github.com/MT5013-HT18/Class_files/blob/master/MM2001_results.csv) contains the age, sex, and grade on course Matematik I (MM2001) of 3201 students aged 18-40 years. An `NA` in the grade column means that the student has been registered but not yet completed the course.
+The file [`Class_files/MM2001_results.csv`](https://github.com/MT5013-HT19/Class_files/blob/master/MM2001_results.csv) contains the age, sex, and grade on course Matematik I (MM2001) of 3201 students aged 18-40 years. An `NA` in the grade column means that the student has been registered but not yet completed the course.
 
 Use `ggplot` to explore relations between the variables.
 

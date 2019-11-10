@@ -1,0 +1,63 @@
+---
+title: "HW2: Basic tidyverse"
+output: html_document
+---
+
+## Repo admin
+
+From the first homework assignment, you should now have a Homework folder on your computer containing a subfolder `HW1` with the first assignment. For the coming assignments, you will need data that is made available in the repo at [https://github.com/MT5013-HT19/HW_data](https://github.com/MT5013-HT19/HW_data). Clone this repo (by creating a new R-project) into a subfolder HW_data of Homework. We recommend that you start a fresh R-project in `Homework/HW2`, but communicate with GitHub through the project in Homework (i.e. open this project when you need to commit/push).
+
+### Summary of repos and folders
+
+* The Homework folder is connected to your `HW_username` repository on GitHub. When you want to push your work to GitHub, open the R-project in this folder and commit-push. It has a subfolder `Homework/HW_data` and one subfolder for each homework (`Homework/HW1`, `Homework/HW2`, …). It also contains the README.md-file where you insert links to your homeworks.
+* The `Homework/HW_data` folder is connected to [https://github.com/MT5013-HT19/HW_data](https://github.com/MT5013-HT19/HW_data). When a new homework is issued, you need to open the R-project in this folder and pull the new data from GitHub. You should never change the files in this folder. If you do so by mistake, delete it and make a new clone.
+* The `Homework/HW[1-6]` folders. This is where you keep your rmarkdown and markdown document for each homework. You should keep a separate R-project in each, but these need not be under version control.
+
+### Finally
+
+You should not push the `Homework/HW_data` to GitHub. In order to avoid this:
+
+1. Open the R-project in Homework.
+2. Choose “Open file…” and open the file `.gitignore` (a list of files that git ignores).
+3. Add a new line containing `HW_data` and save the file.
+
+
+## HW instructions
+
+Solutions to the following tasks should be presented in an R-Markdown document with `output: github_document`. Both the R-Markdown document (.Rmd-file) and the compiled Markdown document (.md file), as well as any figures needed for properly rendering the Markdown file on GitHub needs to be pushed as part of the HW2 subdirectory. Code should be written clearly in a consistent style, see in particular Hadley Wickham’s [tidyverse style guide](https://style.tidyverse.org/). As an example, code should be easily readable and avoid unnecessary repetition of variable names.
+
+Your submitted code should be self-contained and results should reproducible for someone having access to the `HW_data-repo` directory. Once ou are ready to submit and before the deadline, use the same procedure as for HW1: open an issue in your `HW_<username>` repository with the title "HW2 ready for grading!".
+
+
+## Exercise 1: Departures and Landings at Arlanda Airport
+
+The file [`../HW_data/swedavia_arn_2019-11-08.RData`](https://github.com/mt5013-ht19/HW_data/blob/master/swedavia_arn_2019-11-08.RData) contains data about all arriving and departing flights at Arlanda Airport on Friday 2019-11-08. The data are pulled using the [FlightInfo API](https://apideveloper.swedavia.se/docs/services/flightinfov2/operations/5bf658bdbc86470e887fb301) from the [Swedavia API developer portal](https://apideveloper.swedavia.se/) by the script [`HW_data/swedavia_api.R`](https://github.com/mt5013-ht19/HW_data/blob/master/swedavia_api.R).
+
+The data from the `.RData` file can be read into R with the `load` function and contains two objects, `arn_arrivals` and `arn_departures`. A description of the individual variables can be found in the [Swedavia  FlightInfo API documentation](https://apimgmtstilktknfq0ahcbmu.blob.core.windows.net/content/MediaLibrary/Files/Using%20the%20FlightInfo%20API.pdf). The `swedavia_api.R` script is just for your information and for possible reproducibility, but you do not need to run it.
+
+### Tasks    
+
+a. How many departing flights were cancelled at Arlanda that day? Which airline had most cancelations?
+b. Determine the 3 airports with most connections departing from ARN to them on 2019-11-08.
+c. Add an extra column `delay` in the departures data, which contains the difference in minutes between the scheduled departure time and the actual departure time. For this task you need to work with POSIXct-dates in R. In they tidyverse these are conveniently handled using the [`lubridate` package](https://lubridate.tidyverse.org/) - the package is automatically loaded as part of 
+`library(tidyverse)`.[^1] More information about dates can be found in the Chapter [Dates and time](https://r4ds.had.co.nz/dates-and-times.html) of the *R for Data Science* book or as part of the Data Camp course [Working with Dates and Times in R](https://www.datacamp.com/courses/working-with-dates-and-times-in-r). 
+d. Create an additional column `airline3` in the departure dataset, which contains a factor with three levels: "DY" if the airline is Norwegian, "SK" if the airline is SAS and "Other" for any other airline. Hint: You can use the dplyr functions `if_else` or `case_when` on one of the existing columns in the dataset.
+e. Compute the median delay for each airline category of `airline3`. Interpret the result.
+f. For each of the 3 categories of `airline3` create a histogram of the delays in minutes.
+g. My flight back to Berlin on 2019-11-08 was SK2679. When did it actually depart from Arlanda? Note: The answer should be given in [Central European Time](https://en.wikipedia.org/wiki/Central_European_Time).
+h. The reason for the delay in departure was that SK2679 was waiting for passengers (and the pilots!) from another delayed SAS flight arriving late in Arlanda. Which airport do you suspect the delayed flight came from? Explain your investigative approach in words before substantiating your answer by data and code.
+
+
+## Exercise 2: Apartment prices
+
+The file `../HW_data/booli_sold.csv` contains sales data on 158 apartments in Ekhagen (next to Lappis) collected from [Boolis open API](https://www.booli.se/api/).
+
+### Tasks
+
+a. Illustrate how Soldprice depends on Livingarea with a suitable figure.
+b. Illustrate trends in Soldprice / Livingarea over the period.
+c. Illustrate an aspect of data using a table.
+d. Illustrate an aspect of data using a histogram.
+e. Illustrate an aspect of data using a boxplot (`geom_boxplot`).
+
+[^1]: The lubridate manual at least claims this. In practice you might to have to manually load the lubridate package using an additional `library(lubridate)`.
