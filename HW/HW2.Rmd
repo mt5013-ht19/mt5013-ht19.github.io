@@ -50,7 +50,7 @@ h. The reason for the delay in departure was that SK2679 was waiting for passeng
 
 ## Exercise 2: Apartment prices
 
-The file `../HW_data/booli_sold.csv` contains sales data on 158 apartments in Ekhagen (next to Lappis) collected from [Boolis open API](https://www.booli.se/api/).
+The file [`../HW_data/booli_sold.csv`](https://github.com/mt5013-ht19/HW_data/blob/master/Booli_sold.csv) contains sales data on 158 apartments in Ekhagen (next to Lappis) collected from [Boolis open API](https://www.booli.se/api/).
 
 ### Tasks
 
