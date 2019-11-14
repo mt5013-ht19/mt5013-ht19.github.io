@@ -6,6 +6,10 @@ output:
     toc_depth: 4    
 ---
 
+```{r setup, echo=FALSE, results="hide", message=FALSE}
+library(tidyverse)
+```
+
 ## Do this before class
 
 Read [R4DS](http://r4ds.had.co.nz/) chapter 12.
@@ -14,13 +18,13 @@ Solve *Introduction and exploring raw data* and *Tidying data* of the *Cleaning 
 
 ## During class
 
-* The file [`Class_files/Statistikdatabasen_2018-01-23 14_46_26.csv`](https://github.com/MT5013-HT18/Class_files/blob/master/Statistikdatabasen_2018-01-23%2014_46_26.csv) contains records of adults visiting dental care by sex, municipality and year (downloaded from [The National Board of Health and Welfare dental health records](http://www.socialstyrelsen.se/statistik/statistikdatabas/tandhalsa)). Read it with
+* The file [`Class_files/Statistikdatabasen_2019-11-14 23_25_40.csv`](https://github.com/MT5013-HT19/Class_files/blob/master/Statistikdatabasen_2019-11-14%2023_25_40.csv) contains records of adults visiting dental care by sex, municipality and year (downloaded from [The National Board of Health and Welfare dental health records](https://sdb.socialstyrelsen.se/if_tandhalsa)). Read it with
 ```{r, eval = FALSE}
-dental_data <- read_csv2("Class_files/Statistikdatabasen_2018-01-23 14_46_26.csv", skip = 1, n_max = 580)
+dental_data <- read_csv2("Class_files/Statistikdatabasen_2019-11-14 23_25_40.csv", skip = 1, n_max = 580)
 ```
 (why `skip = 1` and  `n_max = 580`?) and use `gather` to convert it to long ("tidy") format.
 
-* The file [`Class_files/Statistikdatabasen_2018-01-23 15_04_12.csv`](https://github.com/MT5013-HT18/Class_files/blob/master/Statistikdatabasen_2018-01-23%2015_04_12.csv) contains records of suicides and death totals by sex, county and year (from [The National Board of Health and Welfare](http://www.socialstyrelsen.se/statistik/statistikdatabas/dodsorsaker)). Read it with
+* The file [`Class_files/Statistikdatabasen_2018-01-23 15_04_12.csv`](https://github.com/MT5013-HT19/Class_files/blob/master/Statistikdatabasen_2018-01-23 15_04_12.csv) contains records of suicides and death totals by sex, county and year (from [The National Board of Health and Welfare](https://sdb.socialstyrelsen.se/if_dor/val.aspx)). Read it with
 
 ```{r, eval = FALSE}
 data <- read_csv2("Class_files/Statistikdatabasen_2018-01-23 15_04_12.csv", skip = 1, n_max = 80)
@@ -28,8 +32,8 @@ data <- read_csv2("Class_files/Statistikdatabasen_2018-01-23 15_04_12.csv", skip
 
 and plot the proportion of suicides among death totals, by year, for the whole country.
 
-* The file [`Class_files/Statistikdatabasen_2018-01-23 15_39_06.csv`](https://github.com/MT5013-HT18/Class_files/blob/master/Statistikdatabasen_2018-01-23%2015_39_06.csv) contains monthly records of social assistance (ekonomiskt bistånd). Explore it in a spread sheet and transform to  "tidy format" containing the variable average payment per houshold (`Utbetalt ekonomiskt bistånd tkr` divided by `Antal hushåll`) for each month and county. It may be helpful to join the first two columns using `paste`.
+* The file [`Class_files/Statistikdatabasen_2018-01-23 15_39_06.csv`](https://github.com/MT5013-HT19/Class_files/blob/master/Statistikdatabasen_2018-01-23%2015_39_06.csv) contains monthly records of social assistance (ekonomiskt bistånd). Explore it in a spread sheet and transform to  "tidy format" containing the variable average payment per houshold (`Utbetalt ekonomiskt bistånd tkr` divided by `Antal hushåll`) for each month and county. It may be helpful to join the first two columns using `paste`.
 
 * Examination of the course Matematik I (MM2001) consists a large number of smaller labs/exams with individual codes (Provkoder), see the 
- [course plan](https://sisu.it.su.se/pdf_creator/8940/34903) for a full list. The file [`Class_files/MM2001.csv`](https://github.com/MT5013-HT18/Class_files/blob/master/MM2001.csv) contains results for 100 randomly chosen students exported using and older version of [Ladok](https://sv.wikipedia.org/wiki/LADOK). Each row corresponds to one student (name and id removed). Transform data (or a subset of data) to a tidy format.
+ [course plan](https://sisu.it.su.se/pdf_creator/8940/34903) for a full list. The file [`Class_files/MM2001.csv`](https://github.com/MT5013-HT19/Class_files/blob/master/MM2001.csv) contains results for 100 randomly chosen students exported using and older version of [Ladok](https://sv.wikipedia.org/wiki/LADOK). Each row corresponds to one student (name and id removed). Transform data (or a subset of data) to a tidy format.
  
