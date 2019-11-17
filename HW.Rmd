@@ -1,16 +1,20 @@
 ---
 title: "Individual homework (3 hp, grade: PASS/FAIL)"
 output: html_document
+editor_options: 
+  chunk_output_type: console
 ---
 
-Six homework assignments should be solved and uploaded on GitHub at the latest 23:59 on their respective date of deadline. These should be solved individually. The assignments also involves peer review of another students solution.
+Six homework assignments should be solved and uploaded on GitHub at the latest 23:59 on their respective date of deadline. These should be solved individually. The assignments also involves peer review of another students solution - the deadline for this is the Wednesday following the deadline (i.e. Deadline + 3 days). Further information about the student peer review is typically provided at
+the [nyhetsforum](https://kurser.math.su.se/mod/forum/view.php?id=46146) of kurser.math.su.se.
+
 
 
 ```{r, echo =FALSE}
 HW <- c(
     "[HW1: GitHub test-run](HW/HW1.html)",
     "[HW2: Basic tidyverse](HW/HW2.html)",
-    "HW3: Working with tables",
+    "[HW3: Working with tables](HW/HW3.html)",
     "HW4: Stores and products",
     "HW5: Texts and lists",
     "HW6: Scraping and mapping"
