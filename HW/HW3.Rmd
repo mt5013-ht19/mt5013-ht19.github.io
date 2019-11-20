@@ -34,11 +34,12 @@ The file [`HW_data/sl-api.sqlite`](https://github.com/mt5013-ht19/HW_data/blob/m
 
 ### Tasks
 
-a. Figure out and describe how the tables relate to eachother. 
+a. Figure out and describe how the tables relate to eachother. Note: Answer the question by both studying the descriptive information on the linked Webseite and, to a smaller degree, by manually looking at the data from the NoSQL-Database file from the `HW_data` folder. The later could, e.g., be useful to confirm what is written in the description. At the end, your answers is supposed to consists purely of text and possibly a figure, but no code.
 
 b. Pull all data from the SQLite database into R as data.frames using the `RSQLite` package. Note: The `SiteId`, `StopPointNumber` and `StopAreaNumber` variables are all of the type `integer` according to the data model, but have not been properly converted as part of the API call. As a consequence, convert them manually to numerical values after importing them into R.
 
-c. Consider the `stopAreas` and `stopPoints` tables and comment on the sparsity of this data presentation. Suggest a more sparse data model for the `stopAreas` table and perform the appropriate table operations to obtain this sparser representation and store it in the data.frame `stopAreas_sparse`. Explain how one would get the original `stopAreas` data.frame using joins.
+c. Consider the `stopAreas` and `stopPoints` tables and comment on the sparsity of this data presentation, e.g., are there any (unecessary) redudancies?. Suggest a more sparse data model for the `stopAreas` table and perform the appropriate table operations to obtain this sparser representation and store it in the data.frame `stopAreas_sparse`. Explain how one would get the original `stopAreas` data.frame using joins.
+Note: A very operational way to check memory consumption for storing a variable in R is to use the `object.size` function or the [`pryr::object_size`](http://adv-r.had.co.nz/memory.html#object-size) function.  
 
 d. Present a table of the number of active unique rail traffic stops (i.e. train, tram or metro stops in each ticket zone (`ZoneShortName` in `stopAreas`/`stopPoints`). By "active" we mean stops that are part of the journey pattern of a line.
 
