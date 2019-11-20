@@ -7,6 +7,7 @@
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -254,9 +255,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type="text/css">
 .main-container {
@@ -270,7 +269,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -281,22 +279,80 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
 
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -321,23 +377,23 @@ $(document).ready(function () {
 
 <div id="do-this-before-class" class="section level2">
 <h2>Do this before class</h2>
-<p>Read <a href="https://bookdown.org/rdpeng/exdata/">Exploratory Data Analysis with R</a> chapters 11-13.</p>
+<p>Read chapters 11-13 in the book <a href="https://bookdown.org/rdpeng/exdata/">Exploratory Data Analysis with R</a>.</p>
 </div>
 <div id="during-class" class="section level2">
 <h2>During class</h2>
 <div id="election-2018" class="section level3">
 <h3>Election 2018</h3>
-<p>The file <code>Class_files/2018_R_per_kommun.csv</code> contains the results of the Swedish elections for <em>Riksdagen</em> in Swedish municipalities from <a href="https://data.val.se/val/val2018/statistik/index.html#slutligt">valmyndigheten</a>. Extract the columns containing results for the main 7 parties (columns 5-12), rescale this matrix using <code>scale</code> and call the result <code>X</code>.</p>
+<p>The file <a href="https://github.com/mt5013-ht19/Class_files/blob/master/2018_R_per_kommun.csv"><code>Class_files/2018_R_per_kommun.csv</code></a> contains the results of the Swedish elections for <em>Riksdagen</em> in Swedish municipalities from <a href="https://data.val.se/val/val2018/statistik/index.html#slutligt">valmyndigheten</a>. Extract the columns containing results for the main seven parties (columns 5-12), rescale this matrix using <code>scale</code> and call the result <code>X</code>.</p>
 <ul>
 <li><p>Compute the principal components of <code>X</code> using <code>princomp</code> and plot using <code>biplot</code>. Which parties seem to be most close/distant to SD in terms of municipal voting patterns?</p></li>
 <li><p>Perform hierarchical clustering of both <code>X</code> and <code>t(X)</code> using <code>hclust</code> and plot the resulting object with <code>plot</code> (add suitable labels for the former using <code>labels</code>-option in <code>plot</code>).</p></li>
-<li><p>The file <code>Class_files/Kommungruppsindelning_2017.csv</code> contains a <a href="https://skl.se/tjanster/kommunerlandsting/faktakommunerochlandsting/kommungruppsindelning.2051.html">classification of Swedish municipalities</a> (<a href="https://skl.se/download/18.6b78741215a632d39cbcc85/1487772640274/Classification%20of%20Swedish%20Municipalities%202017.pdf">english translation</a>). Join this with the election data (paste the first two columns of election data for a matching key).</p></li>
+<li><p>The file <a href="https://github.com/mt5013-ht19/Class_files/blob/master/Kommungruppsindelning_2017.csv"><code>Class_files/Kommungruppsindelning_2017.csv</code></a> contains a <a href="https://skl.se/tjanster/kommunerlandsting/faktakommunerochlandsting/kommungruppsindelning.2051.html">classification of Swedish municipalities</a> (<a href="https://skl.se/download/18.6b78741215a632d39cbcc85/1487772640274/Classification%20of%20Swedish%20Municipalities%202017.pdf">english translation</a>). Join this with the election data (paste the first two columns of election data for a matching key).</p></li>
 <li><p>Compute the singular value decomposition of <code>X</code> and extract the first two columns of the <em>U</em> matrix. Add these columns to the joined table above and plot them as points colored by the classification of municipalities. Does there seem to be a relation between voting patterns and classification (or do the points seem colored randomly)?</p></li>
 </ul>
 </div>
 <div id="graders" class="section level3">
 <h3>6 graders</h3>
-<p>In the file <code>Class_files/betyg.csv</code> you will find the average grade of 6 graders in a number of subjects and municipalities. Explore data using multivariate techniques.</p>
+<p>In the file <a href="https://github.com/mt5013-ht19/Class_files/blob/master/betyg.csv"><code>Class_files/betyg.csv</code></a> you will find the average grade of 6 graders in a number of subjects and municipalities. Data are taken from <a href="https://www.h6.scb.se/metadata/mikrodataregister.aspx">SCB</a> and are provided by Skolverket - a <a href="https://www.scb.se/hitta-statistik/statistik-efter-amne/utbildning-och-forskning/skolvasende-och-barnomsorg/grundskolan-betyg-arskurs-6/">detailed description</a> of the data is available from SCB. Explore the data using multivariate techniques.</p>
 </div>
 </div>
 
@@ -358,6 +414,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

@@ -1,0 +1,32 @@
+---
+title: 'Day 8: Highdimensional data: Principal components and clusters'
+output:
+  html_document:
+    toc: true
+    toc_depth: 4    
+---
+
+## Do this before class
+
+Read chapters 11-13 in the book [Exploratory Data Analysis with R](https://bookdown.org/rdpeng/exdata/).
+
+## During class
+
+
+### Election 2018
+
+The file [`Class_files/2018_R_per_kommun.csv`](https://github.com/mt5013-ht19/Class_files/blob/master/2018_R_per_kommun.csv) contains the results of the Swedish elections for *Riksdagen* in Swedish municipalities from [valmyndigheten](https://data.val.se/val/val2018/statistik/index.html#slutligt). Extract the columns containing results for the main seven parties (columns 5-12), rescale this matrix using `scale` and call the result `X`.
+
+- Compute the principal components of `X` using `princomp` and plot using `biplot`. Which parties seem to be most close/distant to SD in terms of municipal voting patterns?
+
+- Perform hierarchical clustering of both `X` and `t(X)` using `hclust` and plot the resulting object with `plot` (add suitable labels for the former using `labels`-option in `plot`).
+
+- The file [`Class_files/Kommungruppsindelning_2017.csv`](https://github.com/mt5013-ht19/Class_files/blob/master/Kommungruppsindelning_2017.csv) contains a [classification of Swedish municipalities](https://skl.se/tjanster/kommunerlandsting/faktakommunerochlandsting/kommungruppsindelning.2051.html) ([english translation](https://skl.se/download/18.6b78741215a632d39cbcc85/1487772640274/Classification%20of%20Swedish%20Municipalities%202017.pdf)). Join this with the election data (paste the first two columns of election data for a matching key). 
+
+- Compute the singular value decomposition of `X` and extract the first two columns of the *U* matrix. Add these columns to the joined table above and plot them as points colored by the classification of municipalities. Does there seem to be a relation between voting patterns and classification (or do the points seem colored randomly)?
+
+
+### 6 graders
+
+In the file [`Class_files/betyg.csv`](https://github.com/mt5013-ht19/Class_files/blob/master/betyg.csv) you will find the average grade of 6 graders in a number of subjects and municipalities. Data are taken from [SCB](https://www.h6.scb.se/metadata/mikrodataregister.aspx) and are provided by Skolverket - a [detailed description](https://www.scb.se/hitta-statistik/statistik-efter-amne/utbildning-och-forskning/skolvasende-och-barnomsorg/grundskolan-betyg-arskurs-6/) of the data is available from SCB.
+Explore the data using multivariate techniques.
