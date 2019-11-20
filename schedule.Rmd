@@ -54,7 +54,7 @@ remove_url_from_topics <- function(topics, from_lecture_number=1) {
 }
 
 ##Remove URLs. Increment this for every lecture we do.
-from_lecture_number <- 9#length(topics) 
+from_lecture_number <- 10#length(topics) 
 topics <- remove_url_from_topics(topics, from_lecture_number=from_lecture_number)
 ```
 

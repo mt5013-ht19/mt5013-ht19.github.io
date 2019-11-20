@@ -1,0 +1,114 @@
+---
+title: 'Day 9: Text data: Regular expressions'
+output:
+  html_document:
+    toc: true
+    toc_depth: 4    
+editor_options: 
+  chunk_output_type: console
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, eval = FALSE)
+```
+
+```{r, echo = FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+library(stringr)
+```
+
+## Do this before class
+
+Read [R4DS](http://r4ds.had.co.nz/) chapter 14.
+
+Solve chapters *String basics*, *Introduction to stringr* and *Pattern matching with regular expressions* at [DataCamp](https://www.datacamp.com/enterprise/mt5013-ht19/).
+
+
+## During class
+
+### A csv-reader
+
+Combine `readLines` and `str_split` to a simple `.csv`-reader function with header `my_csv_reader <- function(file)` that reads a `.csv`-file and returns a matrix of strings with the contents of a file.
+
+### HTML tables
+
+The string `table` contains a simple table in HTML,
+```{r}
+table <- "<table>
+  <tr>
+    <th>Förnamn</th>
+    <th>Efternamn</th> 
+    <th>Ålder</th>
+  </tr>
+  <tr>
+    <td>Kalle</td>
+    <td>Karlsson</td> 
+    <td>25</td>
+  </tr>
+  <tr>
+    <td>Lisa</td>
+    <td>Larsson</td> 
+    <td>17</td>
+  </tr>
+</table>"
+```
+
+that a web-browser renders as
+
+| Förnamn       | Efternamn           | Ålder  |
+| ------------- |-------------| -----|
+| Kalle | Karlsson | 25 |
+| Lisa    | Larsson    |  17 |
+
+
+Use regex to extract the vector
+```{r, echo = FALSE, eval = TRUE, results="hide"}
+c("Förnamn", "Efternamn", "Ålder", "Kalle", "Karlsson", "25", "Lisa", "Larsson", "17") 
+
+```
+from `table`.
+
+### Motions of the Riksdag
+
+Data from this exercise were obtained from the [Open data of the Swedish Riksdag](https://data.riksdagen.se/) and contains a list of motions proposed by members of the Riksdag during [2014-2017](https://data.riksdagen.se/data/dokument/) (scroll a bit down to find the topic "Motion  - Motioner från riksdagens ledamöter."). Read it by
+
+```{r, eval = FALSE}
+motions <- read_csv("Class_files/mot-2014-2017.csv", 
+                     col_names = c("hangar_id", "dok_id", "rm", "beteckning", 
+                                   "typ", "subtyp", "doktyp", "dokumentnamn",  "organ", 
+                                   "mottagare", "nummer", "datum", "systemdatum", 
+                                   "titel", "subtitel", "status"))
+```
+
+There are two sources of information on the political party (S, V, Mp, M, L, C, Kd or Sd) behind the motion, in `dokumentnamn` and in `subtitel`. Use e.g. `str_extract` with suitable regex to extract party from both sources. 
+
+Note that a motion may be proposed by a group of members, possibly of different parties. Resolve or ignore this as you like.
+
+Plot the monthly number of motions colored acording to party.
+
+### Sentiment of the people of Hemsö
+
+[Strindberg´s Hemsöborna](https://en.wikipedia.org/wiki/The_People_of_Hems%C3%B6) can be downloaded from [Project Gutenberg](https://www.gutenberg.org/) (in Swedish) with
+```{r, eval=FALSE}
+text <- readLines("http://www.gutenberg.org/cache/epub/30078/pg30078.txt", encoding = "UTF-8") %>% .[93:5129]
+```
+```{r, echo=FALSE}
+text <- readLines(file.path("..","Class_files","pg30078.txt") , encoding = "UTF-8") %>% .[93:5129]
+```
+
+Convert the text to a `data.frame` with the variable `word` containing all words of the text in lower case and with any punctuation marks removed. Add the variables `nr = 1:n()` and `chapter = cumsum(word == "kapitlet")`. When analysing text, so called stop-words are usually removed. A list of Swedish stop-words can be downloaded by
+```{r}
+stopwords <- read_table("https://raw.githubusercontent.com/stopwords-iso/stopwords-sv/master/stopwords-sv.txt",
+                       col_names = "word")
+```
+Remove the stop-words from the text with `anti_join`. 
+
+Sentiment analysis is a way of quantifying positive/negative emotions in a text, you can find specialised course on [DataCamp](https://www.datacamp.com/courses/q:sentiment) if you are interested. This is generally done by a sentiment lexicon that contains a list of words quantified as positive or negative, a Swedish lexicon can be found at [Språkdatabanken](https://spraakbanken.gu.se/) and downloaded by
+```{r}
+sentiment <- read_csv("https://svn.spraakdata.gu.se/sb-arkiv/pub/lmf/sentimentlex/sentimentlex.csv")
+```
+
+Join the lexicon with the text with an `inner_join` and try to visualise how the sentiment of the text changes as a function of `chapter` or `nr`.
+
+Note: The statistical analysis of text has become rather popular, e.g., in marketing or sociology, and is sometime also known as NLP (Natural languae processing). More information about how to do this in R can be found in, e.g., in the book [Text Mining with R](https://www.tidytextmining.com/) by Silge and Robinson. For those interested this could also be a nice topic for your project work in the course. Here is one [blog post](http://varianceexplained.org/r/trump-tweets/) about Donald Trump's tweets, which back in 2016 made it to the news.
+
+
