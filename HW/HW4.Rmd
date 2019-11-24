@@ -1,0 +1,87 @@
+```{r SETUP, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+hw_number <- 4
+first_sunday <- as.Date("2019-11-10") 
+deadline_hw <- first_sunday + (hw_number-1)*7 
+deadline_peerreview <- deadline_hw + 3
+
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(stringr))
+
+```
+---
+title: "HW`r hw_number`: Cubing regexps and 6th graders"
+output: html_document
+---
+
+Solutions to the exercises of this homework `r hw_number` should, just as for HW1-HW`r hw_number-1`, be written in an R-Markdown document with `output: github_document`. Both the R-Markdown document (.Rmd-file) and the compiled Markdown document (.md file), as well as any figures needed for properly rendering the Markdown file on GitHub, should be uploaded to your Homework repository as part of a `HW4` folder. Code should be written clearly in a consistent style, see in particular Hadley Wickham’s [tidyverse style guide](https://style.tidyverse.org/). As an example, code should be easily readable and avoid unnecessary repetition of variable names.
+
+Note that there are new data-sets available in the `HW_data` repository. Downloading them by opening the associated R-project and issue a “pull”. If it fails, delete the `HW_data` folder on your computer and clone the repository again according to the [instructions in HW2](HW2.html).
+
+#### Deadline 
+
+Deadline for the homework is **`r deadline_hw` at 23.59**. Submission occurrs as usual by creating a new issue with the title **"HW`r hw_number` ready for grading!"** in your repository. Please also add  link from your repository's `README.md` file to ``HW`r hw_number`/HW`r hw_number`.md``.
+
+## Exercise 1: Rubik's cube algorithms and regular expressions
+
+The notation for the simplest [moves](https://solvethecube.com/notation) of a [Rubik's cube](https://en.wikipedia.org/wiki/Rubik%27s_Cube) is given by the letters U, R, F, D, B, L. Each letter denotes 90 degree clock-wise moves of a cube's face. For example, the move R means to rotate the face directly to the right of the front 90 degrees clock wise (according to its axis of rotation). Similarly, adding a prime symbol after the letter means that the face has to be rotated **counter-clock-wise**, i.e. R' means to rotate the face directly to the right of the front 90 degrees counter-clock wise. Furthermore, R2 denotes a 180 degree turn of the face directly to the right of the front (i.e. either R R or R' R'). 
+
+In what follows we shall consider the following [permutation of the last layer (PLL)](https://www.speedsolving.com/wiki/index.php/PLL) algorithm given by the sequence
+```{r, echo=TRUE}
+t_perm <- "R U R' U' R' F R2 U' R' U' R U R' F'"
+````
+which is also called a [T-perm](https://www.speedsolving.com/wiki/index.php/PLL#T_Permutation). Performing it fast on a cube can be watched on [youtube](https://www.youtube.com/watch?v=989kUSCYWgk).
+
+### Tasks
+
+a. Write `stringr` code, which counts the number of moves in the above T-perm algorithm. Note: The 180 degree turns such as R2 count as one move. This way of counting Rubik's cube moves is also known as the [half turn metric](https://www.speedsolving.com/wiki/index.php/Half_Turn_Metric).
+
+```{r, echo=FALSE}
+j_perm <- "R U R' F' R U R' U' R' F R2 U' R' U'"
+```
+b. For better memorization and to increase speed of execution, one notices that particular sub-sequences occur frequent in Rubik's cube algorithms. For example R U R' U' goes under the questionable acronym ["sexy move"](https://www.speedsolving.com/wiki/index.php/Sexy_Move) [[video](https://www.youtube.com/watch?v=NwEhhKQOPiQ)]. Furthermore, R U R' F', is a variant of the sexy-move ending with an F' move instead of U'. Your task is to use regular expressions and `stringr` functionality to parenthesize these known sub-sequences in the above T-perm algorithm, i.e. we want to get the result
+(R U R' U') R' F R2 U' R' U' (R U R' F'). Your approach should be generalised such that it also works on an algorithm suchs as `r str_c(j_perm, collapse=" ")`.
+
+c. A simple way to impress your non-cubing friends is to begin from a solved cube. Then perform any sequence you like, such as the above T-perm, show the cube to your friends, and then just perform the inverse of the algorithm to solve the cube again. The first step of inverting an algorithm consists of performing the inverse of the last move. As an example: the inverse of R is R', the inverse of R' is (R')'=R, the inverse of R2=R R is R'R'=R2 (i.e. the inverse of R2 is R2). As a second step, the inverse of the 2nd last move of the algorithm is performed. The third step consists of the inverse of the 3rd last step and so on. Write `stringr` code which given an algorithm `alg` (represented as a character vector) returns the inverse of the algorithm as a character vector. As an example: The inverse of a sexy move is R U R' U' is U R U' R'. Note: You can easily assess if your solution is correct by eye-balling the result or click "invert" for the given algorithm at [`alg.cubing.net`](https://alg.cubing.net/?alg=R_U_R-_F-_R_U_R-_U-_R-_F_R2_U-_R-_U-).
+
+
+## Exercise 2: Skoleverket's information about 6th graders
+
+Data from this exercise originate from [Skolverket](https://www.skolverket.se) and contain the grades of 6th graders from all elementary schools in Sweden. The  [data](https://www.skolverket.se/skolutveckling/statistik/sok-statistik-om-forskola-skola-och-vuxenutbildning?sok=SokD&niva=K&omr=ak6&exp=72&lasar=2019&uttag=null) are freely available when aggregated at the [municipality level](https://en.wikipedia.org/wiki/Municipalities_of_Sweden) and  consists of a CSV file [HW_data/exp_betyg_ak6_kommun_2018_19.csv](https://github.com/mt5013-ht19/HW_data/blob/master/exp_betyg_ak6_kommun_2018_19.csv) containing the results of the year 2018/2019. Skolverket provides some additional information about the content of the data, if you click on ["Analysstöd"](https://siris.skolverket.se/siris/ris.visa_analysstod?psRapport=gr6_betyg_amne&psAr=2019&psVerkformkod=11) at [Skolverket's data download page](https://www.skolverket.se/skolutveckling/statistik/sok-statistik-om-forskola-skola-och-vuxenutbildning?sok=SokD&niva=K&omr=ak6&exp=72&lasar=2019&uttag=null). 
+
+### Tasks
+
+a. Read the data into R and restrict your attention to the results of "Samtliga" schools for each municipality. In what follows we shall analyse the average 'betygspoint' for boys and girls for all 23 subjects (Ämner) contained in the data. Note: Your solution should contain a textual description of how you deal with ".", ".." and "~100" results when importing the data. Call you resulting data.frame `betyg`.
+
+b. Calculate the proportion of missing values for each of the 23 subjects in the `betyg` dataset. Which subjects have less than 5% missing? Restrict your subsequent analysis to these subjects by storing the subset containing these subjects into a dataset `betyg_sub`.
+
+c. Generate a plot of all pairwise subject correlations of the grades in `betyg_sub` and interpret the result. 
+
+d. Use the function `impute::impute.knn` or `mclust::imputeData` to impute missing values for the `NA` values in `betyg_sub` and call the resulting dataset `betyg_sub_imputed`. Study the documentation of the respective function and describe in 5 sentences how the missing values are imputed in your selected approach.
+
+e. Apply a hierarchical clustering algorithm to the transpose of the grades in `betyg_sub_imputed` and plot the resulting dendrogram for the subjects. Interpret the result. Note: You need to reshape the data to wide format in order to analyse the data with the `hclust` function.
+
+f. Use a k-nearest neighbours procedure with two clusters on the reshaped `betyg_sub_imputed` data. Interpret the resulting clusters, e.g., by looking at the cluster centers and explaining how municipalities differ in the two cluster centers. 
+
+g. Use the shapefile in the folder [`HW_data/KommunSweref99TM`](https://github.com/mt5013-ht19/HW_data/tree/master/KommunRT90) obtained from [SCB](https://www.scb.se/hitta-statistik/regional-statistik-och-kartor/regionala-indelningar/digitala-granser/) to plot the resulting cluster for each kommun on a map of Sweden. Iterpret any geographical patterns you see in the visualisation?.
+Note: The map with the polygons of the municipality boarders can be loaded and drawn with `ggplot` using the simple feature ([`sf`](https://cran.r-project.org/web/packages/sf/index.html)) package:
+
+```{r, fig.width=5, fig.height=10}
+# Load data from shapefile
+suppressPackageStartupMessages(library(sf))
+map <- st_read(file.path("HW_data","KommunRT90","Kommun_RT90_region.shp"), stringsAsFactors=FALSE, quiet=TRUE)
+
+#Plot the result including a scale bar and a north arrow
+library("ggspatial")
+ggplot(map) + geom_sf() + 
+    annotation_scale(location = "tl", width_hint = 0.4) +
+    annotation_north_arrow(location = "br", which_north = "true",
+        style = north_arrow_fancy_orienteering) 
+```
+
+Hint: You can think of `sf` objects as data.frames and just apply verbs like `filter`. You need to join the results from your `kmeans` clustering with the above simple features data.frame `map` using a join of two data.frames and then replace `geom_sf` in the above code with `geom_sf( aes(fill = ...))`, where fill is the column containing the categorical cluster number. See, e.g., [Drawing beautiful maps programmatically with R, sf and ggplot2 — Part 2: Layers](https://www.r-spatial.org/r/2018/10/25/ggplot2-sf-2.html) for further explanation and examples. 
+
+
+## Exercise 3: Peer review
+
+The repo to student review will be assigned at `r deadline_hw + 1`. Deadline for the peer-review is **Wed, `r deadline_peerreview`** at 12:00 (noon). The specific tasks to do during peer review will be announced by a post to the nyhetsforum on `r deadline_hw + 1` or, alternatively, by updating this section of the homework. 
