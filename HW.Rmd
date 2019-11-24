@@ -15,7 +15,7 @@ HW <- c(
     "[HW1: GitHub test-run](HW/HW1.html)",
     "[HW2: Basic tidyverse](HW/HW2.html)",
     "[HW3: Working with tables](HW/HW3.html)",
-    "HW4: Stores and products",
+    "[HW4: Cubing regexps and 6th graders](HW/HW4.html)",
     "HW5: Texts and lists",
     "HW6: Scraping and mapping"
 )
