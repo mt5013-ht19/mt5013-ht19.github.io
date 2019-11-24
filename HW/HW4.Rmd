@@ -14,13 +14,15 @@ title: "HW`r hw_number`: Cubing regexps and 6th graders"
 output: html_document
 ---
 
+#### Instructions
+
 Solutions to the exercises of this homework `r hw_number` should, just as for HW1-HW`r hw_number-1`, be written in an R-Markdown document with `output: github_document`. Both the R-Markdown document (.Rmd-file) and the compiled Markdown document (.md file), as well as any figures needed for properly rendering the Markdown file on GitHub, should be uploaded to your Homework repository as part of a `HW4` folder. Code should be written clearly in a consistent style, see in particular Hadley Wickham’s [tidyverse style guide](https://style.tidyverse.org/). As an example, code should be easily readable and avoid unnecessary repetition of variable names.
 
 Note that there are new data-sets available in the `HW_data` repository. Downloading them by opening the associated R-project and issue a “pull”. If it fails, delete the `HW_data` folder on your computer and clone the repository again according to the [instructions in HW2](HW2.html).
 
 #### Deadline 
 
-Deadline for the homework is **`r deadline_hw` at 23.59**. Submission occurrs as usual by creating a new issue with the title **"HW`r hw_number` ready for grading!"** in your repository. Please also add  link from your repository's `README.md` file to ``HW`r hw_number`/HW`r hw_number`.md``.
+Deadline for the homework is **`r deadline_hw` at 23.59**. Submission occurrs as usual by creating a new issue with the title **"HW`r hw_number` ready for grading!"** in your repository. Please also add a link from your repository's `README.md` file to ``HW`r hw_number`/HW`r hw_number`.md``.
 
 ## Exercise 1: Rubik's cube algorithms and regular expressions
 
