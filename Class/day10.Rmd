@@ -1,0 +1,154 @@
+---
+title: 'Day 10: Collecting data from the internet using APIs'
+output:
+  html_document:
+    toc: true
+    toc_depth: 4    
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+## Do this before class
+
+Solve chapters *Downloading Files and Using API Clients*, *Using httr to interact with APIs directly* and *Handling JSON and XML* på [DataCamp](https://www.datacamp.com/enterprise/mt5013-ht19/).
+
+Read: Chapters 1-3 in [An introduction to APIs](https://zapier.com/learn/apis/)
+
+Resources: 
+
+* [ProgrammableWeb](https://www.programmableweb.com/) contains a catalog of open APIs.
+* [Öppna data och PSI](https://oppnadata.se/) contains a catalog of Swedish resources.
+
+## During class
+
+### a-pi
+
+Write a function
+```{r, eval = FALSE}
+get_pi <- function(start, numberOfDigits){
+    ...
+}
+```
+that calls [a-pi](https://pi.delivery/#apipi_get) and returns the digits of $\pi$ from `start` to `start + numberOfDigits - 1`. A sample call is <https://api.pi.delivery/v1/pi?start=1000&numberOfDigits=5>.
+
+### TimeEdit
+
+A TimeEdit-schedule can be obtained in JSON-format by changing `.html` to `.json` in the url, try in a web-browser with 
+<https://cloud.timeedit.net/su/web/stud1/ri107455X48Z06Q5Z16g3Y05y5006Y48Q02gQY6Q55727.html>
+
+**Part 1**: We can use `GET` to import it to R
+
+```{r}
+library(httr)
+schema_response <- GET("https://cloud.timeedit.net/su/web/stud1/ri107455X48Z06Q5Z16g3Y05y5006Y48Q02gQY6Q55727.json")
+schema_json <- content(schema_response, "text")
+```
+
+The result can be explored with `jsonedit` in the package `listviewer`
+```{r}
+library(knitr)
+library(tidyverse)
+library(jsonlite)
+library(listviewer)
+jsonedit(schema_json)
+```
+
+
+We convert it with  `fromJSON` and choose the  `reservations`
+```{r}
+schema_df <- fromJSON(schema_json)$reservations
+```
+
+
+The result is now a `data.frame` with six columns, where the last column contains a vector in each cell. In order to extract elements from this column, we use  `mutate` in combination `map_chr`. The family of `map`-functions comes from the `purrr` package which is part of the `tidyverse`, more abot them later. Here `map_chr(columns, 1)` corresponds to `sapply(columns, function (x) x[1])` in base-R.
+
+```{r}
+schema_df %>% mutate(sal = map_chr(columns, 3), 
+                     kurs = map_chr(columns, 1), 
+                     tid = paste(starttime, endtime, sep = " - ")) %>% 
+    select(kurs, datum = startdate, tid, sal) %>% 
+    kable()
+```
+
+
+Fun fact: The schedule of our github page is based on such a TimeEdit API call - see [`schedule.html`](https://github.com/mt5013-ht19/mt5013-ht19.github.io/blob/master/schedule.Rmd), which makes it easy to adapt the page each year the course is given.
+
+
+**Part 2**: The schedule for room 14 during the 2nd part of the winter semester can be found on
+
+<https://cloud.timeedit.net/su/web/stud1/ri107455X28Z07Q5Z76g0Y05y5076Y31Q09gQY6Q55777.html>
+
+* What teacher spends most time teaching in room 14 during the 2nd part of the winter semester?
+
+
+### SCB
+
+If you generate a table at [Statistikdatabasen](http://www.statistikdatabasen.scb.se/), you will find a link "API för denna tabell" that gives an url and a query to be made by POST in order to fetch the table. Try fetching a table with `httr::POST`, the query should be placed in the `body`.
+
+Note: at the end of the query you may change `"format": "px"` to `"format": "json"` in order to get a reply in JSON-format. Fetch a table, examine its structure and try to extract a suitable `data.frame`. See [`SCB_KPI_API.R`](https://github.com/MT5013-HT19/Class_files/blob/master/SCB_KPI_API.Rmd) for a simple example.
+
+Note: A dedicated R package [`pxweb`](https://cran.r-project.org/web/packages/pxweb/pxweb.pdf) exists for querying the SCB database through the API in a slightly more comfortable way. See the [vignette](https://htmlpreview.github.io/?https://github.com/rOpenGov/pxweb/blob/test/vignettes/pxweb.html) for a demonstratio.
+
+### Latest day at Bromma
+
+The last days hourly temperatures (parameter 1) at Bromma (station 97200) can be fetched from SMHI by  (switch `xml` for `json` if you want to change format)
+
+```{r}
+temp_response <- GET("https://opendata-download-metobs.smhi.se/api/version/1.0/parameter/1/station/97200/period/latest-day/data.xml")
+http_type(temp_response)
+```
+
+We extract the XML-content by
+
+```{r}
+library(xml2)
+temp_xml <- read_xml(temp_response)
+class(temp_xml)
+```
+
+The structure can be viewed by opening 
+
+<https://opendata-download-metobs.smhi.se/api/version/1.0/parameter/1/station/97200/period/latest-day/data.xml> 
+
+in your web-browser. We see that temperatures can be found in  `XPATH` `"/metObsSampleData/value/value"`:
+
+```{r}
+xml_ns_strip(temp_xml) # Överkurs
+xml_find_all(temp_xml, "/metObsSampleData/value/value")
+```
+(use `xml_text` to get the values).
+
+
+* Also extract the times.
+* Try with another station/parameter (see [SMHI](https://opendata-download-metobs.smhi.se/explore/#)). Also try the JSON-format.
+
+### Systembolag
+
+Systembolaget's API uses XML, the list of stores from HW4 can be fetched by
+```{r}
+stores_response <- GET("https://www.systembolaget.se/api/assortment/stores/xml")
+http_type(stores_response)
+```
+
+We extract XML with
+
+```{r}
+stores_xml <- read_xml(stores_response)
+```
+and look at the first with
+
+```{r}
+xml_find_first(stores_xml, "/ButikerOmbud/ButikOmbud")
+```
+In order to extract the names we may use
+```{r}
+xml_find_all(stores_xml, "//Namn")[1:10]
+```
+
+evidently, not all stores have names. 
+
+* Convert the result to a `data.frame`.
+
+
+
+
