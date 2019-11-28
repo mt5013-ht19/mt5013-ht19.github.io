@@ -1,0 +1,35 @@
+---
+title: 'Day 11: Scraping the web'
+output:
+  html_document:
+    toc: true
+    toc_depth: 4    
+---
+
+## Do this before class
+
+Solve chapters *Web scraping with XPATHs* and *CSS Web Scraping and Final Case Study* at [DataCamp](https://www.datacamp.com/enterprise/statistical-data-processing-mt5013/). Read the [selectorgadget vignette](https://cran.r-project.org/web/packages/rvest/vignettes/selectorgadget.html).
+
+## During class
+
+IMPORTANT: The lack of an open API on a web site may indicate that the host is reluctant to share data. Respect this by not republishing their data without consent, see [katalogskyddet](https://lagen.nu/1960:729#P49S1) for the Swedish legal rights.
+
+Note that there is also a R package [`robotstxt`](), which uses an informal standard for specifying up to what degree scraping etc. is allowed on a website. Check the pkg [vignette](https://cran.r-project.org/web/packages/robotstxt/vignettes/using_robotstxt.html) for further information.
+
+### Bokus top sellers
+
+Scrape title, author, rating, price, ... on books listed at [pockettoppen](https://www.bokus.com/topplistor/pockettoppen) (some may be extracted with `html_text`, others with `html_attr`).
+
+### SHL players
+
+* Given a player-url (e.g. <http://www.shl.se/lag/087a-087aTQv9u__frolunda-hc/qQ9-a5b4QRqdS__ryan-lasch>), extract date of birth, age, nationality...
+
+* Given a players statistics-url (e.g. <http://www.shl.se/lag/087a-087aTQv9u__frolunda-hc/qQ9-a5b4QRqdS__ryan-lasch/statistics>), extract season statistics (säsongsstatistik) with `html_table`.
+
+* Given a team-url (e.g. <http://www.shl.se/lag/2459-2459QTs1f__djurgarden-hockey/roster>), extract a list of player-url for the team's players.
+
+
+### SVT news
+
+Scrape the headlines at <https://www.svt.se/>.
+
