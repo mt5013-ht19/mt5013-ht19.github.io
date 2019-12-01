@@ -64,9 +64,11 @@ The repo to student review will be assigned at `r deadline_hw + 1`. Deadline for
 
 > I've reviewed your commit 287b1ae. Nice work! What I find cool in your code is that...
 
-The commit hash can be found in the upper right corner when looking at the file on github (see screenshot below).
+The commit hash can be found in the upper right corner when looking at the file on GitHub (see screenshot below).
 
-![](commithash.png)
+```{r, echo=FALSE, fig.align="center"}
+knitr::include_graphics("commithash.png")
+```
 
 This helps put your comments in context in case future revisions change fundamental things you commented. Reviews in Swedish are fine!
 
