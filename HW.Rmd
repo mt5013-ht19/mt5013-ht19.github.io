@@ -16,7 +16,7 @@ HW <- c(
     "[HW2: Basic tidyverse](HW/HW2.html)",
     "[HW3: Working with tables](HW/HW3.html)",
     "[HW4: Cubing regexps and 6th graders](HW/HW4.html)",
-    "HW5: Texts and lists",
+    "[HW5: Nobel tweets](HW/HW5.html)",
     "HW6: Scraping and mapping"
 )
 deadline <- seq(as.Date("2019/11/10"), by = "week", length.out = 6)
