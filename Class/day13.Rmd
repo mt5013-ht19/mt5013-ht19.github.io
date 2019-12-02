@@ -8,9 +8,12 @@ output:
 
 ## Do this before class
 
-Solve chapters *Functional programming* and *Advanced inputs and outputs* at [DataCamp](https://www.datacamp.com/enterprise/statistical-data-processing-mt5013/).
-
 Read [R4DS](http://r4ds.had.co.nz/) chapter 21.
+
+Complete the course *Foundations of Functional Programming with purrr* at
+ [DataCamp](https://www.datacamp.com/enterprise/statistical-data-processing-mt5013/).
+
+
 
 ## During class
 

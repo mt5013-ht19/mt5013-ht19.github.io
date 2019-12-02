@@ -8,9 +8,11 @@ output:
 
 ## Do this before class
 
-Solve chapters *A quick refresher* and *When and how you should write a function* at [DataCamp](https://www.datacamp.com/enterprise/statistical-data-processing-mt5013/).
-
 Read [R4DS](http://r4ds.had.co.nz/) chapter 19. 
+
+Solve the course *Introduction to Writing Functions in R* at [DataCamp](https://www.datacamp.com/enterprise/statistical-data-processing-mt5013/).
+
+
 
 ## During class
 
