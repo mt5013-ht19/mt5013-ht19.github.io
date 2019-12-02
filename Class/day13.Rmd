@@ -1,0 +1,72 @@
+---
+title: 'Day 13: Functional programming with `purrr`'
+output:
+  html_document:
+    toc: true
+    toc_depth: 4    
+---
+
+## Do this before class
+
+Solve chapters *Functional programming* and *Advanced inputs and outputs* at [DataCamp](https://www.datacamp.com/enterprise/statistical-data-processing-mt5013/).
+
+Read [R4DS](http://r4ds.had.co.nz/) chapter 21.
+
+## During class
+
+Solve exercises in  [R4DS](http://r4ds.had.co.nz/iteration.html#exercises-58) chapter 21.5.3.
+
+### A likelihood function
+
+If  $x$ is a vector of $n$ independent $Exponential(\lambda)$-distributed random variables, the likelihood function for $\lambda$ is
+
+$$
+L(\lambda)= \prod_{i=1}^n\lambda\exp(-x_i\lambda)
+$$
+This can be computed given a value of $\lambda$ using
+
+```{r}
+L_exp <- function(x, lambda) prod(dexp(x, lambda))
+```
+We try with
+```{r}
+set.seed(1)
+x <- rexp(100, 1)
+L_exp(x, 1)
+```
+which seems to work. If we want to plot the function, we need to compute it over a sequence of $\lambda$-values. Trying
+
+
+```{r}
+lambda <- seq(0.5, 2, length.out = 10)
+L_exp(x, lambda)
+```
+gives a scalar instead of the intended vector of $L$-values, what is computed? Use `map_dbl` to compute the vector
+ $(L(\lambda_1), \ldots, L(\lambda_{10}))$.
+
+
+### More dramatic
+
+Modify the function `repertoir` from [day 12](day12.html) such that it generates a suitable result if the API call fails (e.g. due to an empty repertoir). Use it in combination with e.g. `map_df` in order to create a table of all sets from 1908-2017. Who is the most active director?
+
+### More SHL-players
+
+The function `get_player` below fetches data on an SHL-player given an url of the type [`"http://www.shl.se/lag/087a-087aTQv9u__frolunda-hc/qQ9-a5b4QRqdS__ryan-lasch"`](http://www.shl.se/lag/087a-087aTQv9u__frolunda-hc/qQ9-a5b4QRqdS__ryan-lasch)
+
+```{r}
+get_player <- function(url){
+    response <- GET(paste0(url, "/statistics"))
+    player_xml <- content(response, "text") %>% 
+        read_html(player_page)
+    css <- list(".rmss_c-squad__player-header-name-h", # Namn
+                ".rmss_c-squad__player-header-name-info-position", #Position
+                ".rmss_c-squad__player-header-info-items-item-value") # Info
+    map(css, html_nodes, x = player_xml) %>% 
+        map(html_text) %>% 
+        unlist() %>% 
+        set_names(c("Namn", "Position", "Födelsedatum", "Ålder", "Nationalitet", "Längd", "Vikt", "Skjuter"))
+}
+```
+make sure it returns a suitable error-message if the `GET`-call fails (in a successful call, `response$status_code` equals `200`). Construct a new function `get_team`, that given an url of the form [`"http://www.shl.se/lag/2459-2459QTs1f__djurgarden-hockey/roster"`](http://www.shl.se/lag/2459-2459QTs1f__djurgarden-hockey/roster) generates a `data.frame` of players and informations from `get_player`.
+
+

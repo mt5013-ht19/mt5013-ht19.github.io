@@ -1,0 +1,46 @@
+---
+title: 'Dag 12: Functional programming'
+output:
+  html_document:
+    toc: true
+    toc_depth: 4    
+---
+
+## Do this before class
+
+Solve chapters *A quick refresher* and *When and how you should write a function* at [DataCamp](https://www.datacamp.com/enterprise/statistical-data-processing-mt5013/).
+
+Read [R4DS](http://r4ds.had.co.nz/) chapter 19. 
+
+## During class
+
+Complete the exercises in [R4DS](http://r4ds.had.co.nz/) sections 19.2.1, 19.3.1, 19.4.4, 19.5.5.
+
+### Monte-Carlo integration
+
+If the stochastic variable $X$ is uniformly distributed on $(a,b)$, then $E(f(X))=\int_{a}^bf(x)/(b-a)\,dx$. This can be used in order to approximate integrals:
+
+1. Simulate a large number $x_1,\ldots, x_N$ of uniformly distributed randomn numbers on $(a, b)$.
+2. Compute $I=(b-a)\sum_{i=1}^N f(x_i)/N$.
+
+
+By the Law of Large Numbers, $I$ will converge to $\int_{a}^bf(x)\,dx$ as $N\rightarrow\infty$ and can thus be viewed as a numerical approximation of the integral.
+
+
+* Write a function `MC_int` that takes $f$, $a$, $b$, $N$ as inputs and returners $I$.
+* Generalise the function with `...` such that e.g. `MC_int(dnorm, 0, 1, 10000, mean = 1, sd = 2)` integrates the density of an $N(1, 2^2)$-distribution from 0 to 1.
+
+### Dramatic
+
+Write a function
+
+```{r, eval = FALSE}
+repertoire <- function(year) {
+    
+}
+
+```
+
+that returns a data frame with the sets of the [Royal Dramatic Theatre](https://www.dramaten.se/in-english/) in year `year` (columns `Play`, `Opening_night`, `Director` and `Stage`). The sets for, e.g., the inaugural year 1908 can be found by scraping the table on [http://www.dramaten.se/medverkande/rollboken/?category=date&query=1908](http://www.dramaten.se/medverkande/rollboken/?category=date&query=1908).
+
+
