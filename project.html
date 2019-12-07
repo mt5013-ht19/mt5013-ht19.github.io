@@ -302,14 +302,86 @@ $(document).ready(function () {
 
 </div>
 
+<div id="TOC">
+<ul>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#inspiration">Inspiration</a></li>
+<li><a href="#details">Details</a></li>
+<li><a href="#technical-details">Technical details</a></li>
+<li><a href="#grading">Grading</a></li>
+</ul>
+</div>
 
-<p>The final part of the course involves an individual project, taking shape as a data blog post. This should illustrate an issue/problem using an unique data set collected by yourself and at the same time illustrate the use of tools taught in this course. Deadline for the project is <strong>2020-01-15</strong>. On <strong>2020-01-17</strong> the projects will be presented orally (5 minutes presentation) - presence is compulsory for the session you are presenting in, so please reserve that day in your calendar.</p>
-<p>The below blog posts could be viewed as inspiration or to give a rough idea of the amount of work expexted in the projects.</p>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
+<p>The final part of the course involves an individual project, taking shape as a data blog post. This should illustrate an issue/problem using an unique data set collected by yourself and at the same time illustrate the use of tools taught in this course. Deadline for the project is <strong>2020-01-15 at 18:00</strong>. On <strong>2020-01-17</strong> the projects will be presented orally (5 minutes presentation) - presence is compulsory for the session you are presenting in, so please reserve that day in your calendar.</p>
+<p>Note: This text is currently still under development and might change slightly. It will go into stable form as of 2019-12-18.</p>
+</div>
+<div id="inspiration" class="section level2">
+<h2>Inspiration</h2>
+<p>The below blog posts could be viewed as inspiration or to give a rough idea of the amount of work expected in the projects.</p>
 <ul>
 <li><a href="http://staff.math.su.se/hoehle/blog/2016/08/21/gapMedal.html">The Olympic Medal Table Visualized Gapminder Style.</a> <a href="https://github.com/hoehleatsu/hoehleatsu.github.io/blob/master/_source/2016-08-21-gapMedal.Rmd">[.Rmd]</a></li>
+<li><a href="http://staff.math.su.se/hoehle/blog/2017/03/25/scbnames.html">On a First Name Basis with Statistics Sweden</a> [<a href="https://github.com/hoehleatsu/hoehleatsu.github.io/blob/master/_source/2017-03-25-scbnames.Rmd">.Rmd</a>]</li>
 <li><a href="http://dataland.rbind.io/2017/10/15/vilken-%C3%A4r-kents-mest-deprimerande-lat/">Vilken är Kents mest deprimerande låt?</a></li>
 <li><a href="http://www.masalmon.eu/2018/01/01/sortinghat/">Are #python users more likely to get into Slytherin?</a></li>
 </ul>
+<p>Data sources: During the course, you were introduced to a lot of possible data sources. Additional public web based data sources could, e.g., be the <a href="https://dataportalen.stockholm.se/dataportalen/">Stockholm Open Data Portal</a> or the <a href="https://oppnadata.se/#noscroll">Öppna Data</a> site.</p>
+</div>
+<div id="details" class="section level2">
+<h2>Details</h2>
+<p>The project work has the following elements:</p>
+<ol style="list-style-type: lower-alpha">
+<li>find data out in the wild - this can be an open-access SQL database, API data<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, web scraping data, personal surveillance data (e.g., running watch, log-files), data collected as part of a hobby, … The raw data should not be of sensitive nature (data protection!) and should be accessible and uploadable to Github without violating any copyright or access rights.</li>
+<li>determine a good story you can tell based on the data, e.g., a specific hypothesis you want to investigate, a cool visualization of numbers, a data journalism type of story, an educative <code>#rstats</code> post, something which might interest your fellow students. Your post can be about a serious matter, but it can also be a not so serious matter. However, make it clear before writing who is your intended readership (general public, fellow B.Sc. students, R users, ornotologists, …)</li>
+<li>read the data, wrangle the data, visualize the data, make simple statistical summaries and interpret the results in accordance with the selected story you chose in b.</li>
+<li>Write a story worthwhile reading for the selected target audience - it can be written in Swedish or English. The story needs to be written as a reproducible R-Markdown document with HTML backend (see technical details) and should not be excessively long. As a rough guideline: Between 1000-1500 words in the text, no more than 7 figures. No more than 7 visible code chunks (if you decide to have any at all). Note: You can use the <a href="https://github.com/benmarwick/wordcountaddin"><code>wordcountaddin</code></a> for RStudio to count the words in your report.</li>
+<li>Create a 5 minute presentation about your work to present to your fellow students on 2020-01-17. The main aim of your presentation is to convince your fellow students that they should read your blog post. A template for this will be made available within the next days.</li>
+</ol>
+<p>The biggest challenge of the project will be to be realistic about what you can achieve within the given deadline. Once you have an estimate of how much that could be, take 50% of that and you are still likely to be busy. Make sure you have a working project early on and then scale up iteratively, so you’re always ready. Start early.</p>
+</div>
+<div id="technical-details" class="section level2">
+<h2>Technical details</h2>
+<p>For every student will get create a private <code>PR_&lt;username&gt;</code> GitHub repository as part of the <a href="https://github.com/mt5013-ht19">mt5013-ht19 organisation</a>, which only you and the teacher’s of the course have read/write access to (similar setup as your <code>HW_&lt;username&gt;</code> repo) You should make sub-directories <code>Data</code>, <code>R</code>, <code>Report</code> and <code>Presentation</code> and store all your files there. At the project deadline we will pull all repos, which have an issue “Project work submitted”.</p>
+<p>At submission, your repo should at least contain the following files:</p>
+<pre><code>PR_jensjensen/Report/report.Rmd
+PR_jensjensen/Report/report.html
+PR_jensjensen/Presentation/presentation.Rmd
+PR_jensjensen/Presentation/presentation.html</code></pre>
+<p>where <code>jensjensen</code> is to be substituted with your GitHub user name. Note: It’s important to pick exactly the filenames as above, since we will extract report and presentation automatically from your repository. Furthermore, ensure that any support files like data files, graphics, etc. which are needed to compile the .Rmd documents. One exception are data aquired by using private API-keys. To this end, make a <code>R/query_data.R</code> script, which imports the API key stored somewhere outside the git, does all the work and finally stores the data using <code>save</code> in the <code>Data</code> directory. Your R Markdown report should then access the data by using <code>load</code>. See <a href="https://github.com/mt5013-ht19/HW_data/blob/master/swedavia_api.R"><code>HW_data/swedavia_api.R</code></a> folder for an example.</p>
+<p>The data remain private as part of the <code>PW_&lt;username&gt;</code> repository, but your project report HTML-file will be made accessible to the teachers and students of the course.</p>
+<p>In contrast to the homework exercises we use HTML as backend, see e.g. <a href="https://bookdown.org/yihui/rmarkdown/html-document.html">Section 3.1</a> of the <em>R Markdown: The definite guide</em> for options to customize. In order to ensure portability of the HTML reports please use the following as part of your YAML header:</p>
+<pre><code>----
+title: The snappy title of your project
+author: Jens Jensen &lt;jens.jensen@student.su.se&gt;
+date: 2020-01-15
+output:
+  html_document:
+    self_contained: true
+    toc: true
+    toc_depth: 2
+---</code></pre>
+<p>Additional note: It’s possible that we succeed in creating a project repo template, which already contains some of the necessary files and directories.</p>
+<p>Final note: For the presentation the data wrangling steps do not need to be repeated. One can either import all data generated by <code>report.Rmd</code> using <code>load</code> or use some other type of caching.</p>
+</div>
+<div id="grading" class="section level2">
+<h2>Grading</h2>
+<p>The project will be graded based on the following five dimensions, which have equal weight:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Technical difficulty of the project (e.g. how hard to get the data imported, how much time needed to wrangle, how advanced are some of the methods to get statistical summaries, how original is the project idea)</li>
+<li>Coding style and reproducibility of the Rmd file. This includes an assessment of, whether problems were solved tidyverse style.</li>
+<li>Quality of the visualisations and their interpretation</li>
+<li>Readability of the project report (is the story concise, are the aims clear, is the readership happy, spelling &amp; grammar). In particular: Less is sometimes more.</li>
+<li>Quality of the presentation (slides, snore factor, staying in time, …)</li>
+</ol>
+<p><strong>Lycyka till!</strong></p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>If you want to use SCB data extractable by their web interface, please us the <a href="https://cran.r-project.org/web/packages/pxweb/index.html"><code>pxweb</code></a> package for this instead.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
 
 
 
