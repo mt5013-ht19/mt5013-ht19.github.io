@@ -17,7 +17,7 @@ HW <- c(
     "[HW3: Working with tables](HW/HW3.html)",
     "[HW4: Cubing regexps and 6th graders](HW/HW4.html)",
     "[HW5: Nobel tweets](HW/HW5.html)",
-    "HW6: Scraping and mapping"
+    "[HW6: Nobel prize winning project](HW/HW6.html)"
 )
 deadline <- seq(as.Date("2019/11/10"), by = "week", length.out = 6)
 knitr::kable(data.frame(Homework = HW, Deadline = deadline))
