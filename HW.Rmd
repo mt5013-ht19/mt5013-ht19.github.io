@@ -23,3 +23,4 @@ deadline <- seq(as.Date("2019/11/10"), by = "week", length.out = 6)
 knitr::kable(data.frame(Homework = HW, Deadline = deadline))
 ```
 
+An re-exam type homework is currently being made - it's current development status can be seen as [HW7: Leftover buffet](HW/HW7.html). Its final deadline will be somewhere mid/end February 2020, but it can be submitted earlier. See the section "Deadline" for further details.
