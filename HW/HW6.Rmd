@@ -1,0 +1,64 @@
+```{r SETUP, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+hw_number <- 6
+first_sunday <- as.Date("2019-11-10") 
+deadline_hw <- first_sunday + (hw_number-1)*7 
+deadline_peerreview <- deadline_hw + 3
+
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(stringr))
+
+```
+---
+title: "HW`r hw_number`: Nobel prize winning project"
+output: html_document
+---
+
+#### Instructions
+
+Solutions to the exercises of this homework `r hw_number` should, just as for HW1-HW`r hw_number-1`, be written in an R-Markdown document with `output: github_document`. Both the R-Markdown document (.Rmd-file) and the compiled Markdown document (.md file), as well as any figures needed for properly rendering the Markdown file on GitHub, should be uploaded to your Homework repository as part of a `HW4` folder. Code should be written clearly in a consistent style, see in particular Hadley Wickham’s [tidyverse style guide](https://style.tidyverse.org/). As an example, code should be easily readable and avoid unnecessary repetition of variable names.
+
+Note that there are new data-sets available in the `HW_data` repository. Downloading them by opening the associated R-project and issue a “pull”. If it fails, delete the `HW_data` folder on your computer and clone the repository again according to the [instructions in HW2](HW2.html).
+
+#### Deadline 
+
+Deadline for the homework is **`r deadline_hw` at 23.59**. Submission occurs as usual by creating a new issue with the title **"HW`r hw_number` ready for grading"** in your repository. Please also add a link from your repository's `README.md` file to ``HW`r hw_number`/HW`r hw_number`.md``.
+
+## Exercise 1: Purrr
+
+In this exercise we will revisit the Nobel Foundation API known from HW5 and wrap its use with the purrr package.
+
+### Tasks
+
+a. Use the API to extract the id of all Nobel laureates in economics from 1969 to 2019. Use purrr functionality to create a data.frame `laureates` containing five columns: `year`, `category` (always economics), `firstname`, `surname` and `id`. Note: It might be worthwhile to cache the result of your query using `cache=TRUE` in the code chunk of the knitr document in order to avoid calling the API whenever you compile your document.
+
+b. Use the API and `purrr` functionality to loop over all the above ids in `laureates`. For each id determine the day of birth and the gender of the Laureate in economics. Add these as columns `day_of_birth` and `gender` to the above `laureates` frame and store the result in a data.frame denoted `laureates_info`. Note: It might be worthwhile to cache the result of your query using `cache=TRUE` in the code chunk of the knitr document in order to avoid calling the API whenever you compile your document.
+
+c. What is the proportion of female laureates among all current laureates in economics?
+
+d. Assuming that the award is given on the 1st of December every year it is given, compute the age (in years) at the time of the award for each laureate and add this to the `laureates_info` frame. Illustrate this age as a function of the award year for the laureates. Also add an appropriate smooth function using `geom_smooth`. Interpret the overall result, i.e. how has age at the time of the award evolved with time.
+
+## Exercise 2: Starting your project
+
+One part of the examination of this course is that you are going to demonstrate all the acquired skills from this course as part of a project. For this read the course instructions about the [project work](../project.html), which have been updated as part of this homework. 
+
+Note: As an exception you can ask Erik and Jan for help about this exercise **during** the three remaining classes. Note: they will not provide help by email about the project work nor are they making special appointments for you to drop by. You are, to some degree, on your own for the project, but help is provided in these last classes.  
+
+### Tasks
+
+a. State a catchy title for your project.
+b. Provide a short text (~200-300 words) about the story you want to write. Include a specification of your intended readership for the blog-post (i.e. the report).
+c. Describe your data source in some detail, i.e. the format, the availability, the volume (e.g. how many rows, how many different tables) etc. The availability could, e.g., be an URL or who you have to contact to get the data Please also indicate, whether you already got the data or if you are still in the search process.
+d. State in 2-3 sentences what you currently experience as the greatest element of uncertainty in terms of what is expected of you for the project work?
+e. State in 2-3 sentences what  you think will be your biggest technical challenge during the project work?
+
+## Exercise 3: Peer review
+
+The repo to student review will be assigned at `r deadline_hw + 1`. Deadline for the peer-review is **Wed, `r deadline_peerreview`** at 12:00 (noon). 
+
+### Tasks:
+
+- The main purpose of the peer review is to encourage you to read/consider other people's coding solutions and give some constructive feedback on their project idea. Please write a little bit longer response than normal for the project work proposal in Exercise 2. For example: any ideas you want to contribute? any graphics you would like to see based on the data description? do you share the same uncertainty? Reviews can be in Swedish or English.
+
+
+
