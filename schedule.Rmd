@@ -34,7 +34,7 @@ topics <- c(
     "[Web-scraping: Basic rvest.](Class/day11.html)",
     "[R Programming: Programming with functions.](Class/day12.html)<br>09:15-10:00 Guest lecture: Magnus Gudmundson, Watercircles",
     "[R Programming: Functional programming with purrr.](Class/day13.html)",
-    "[Presenting: Principles of visualisation.](Class/day14.html)",
+    "[Presenting: Principles of visualisation.](Class/day14.html) [[Slides](slides/slide14.html)]",
     "Exam.",
     "Re-exam",
     "Project presentation.")
