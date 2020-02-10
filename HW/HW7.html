@@ -373,8 +373,8 @@ summary {
 </div>
 <div id="deadline" class="section level4">
 <h4>Deadline</h4>
-<p>This homework exercise corresponds to the re-examination of the homework part of the HT2019 course for students who particpated actively in the submissions of homeworks during the semester, but for various reasons did not pass one or several of their homework. Who has to which exercises depends sligtly on what homework was missed and is specified individually. So if you want to participate please open an issue in your HW repository with the title <strong>Participating in HW7?&quot;</strong> in your repository and tag me with an <span class="citation">@hoehleatsu</span> in the body, because I will not get notified about the issue otherwise.</p>
-<p>At the moment there is no fixed final deadline for the homework, but this will change once the participants are clear and is likely somewhere during the mid/end February. Submission occurs as usual by creating a new issue with the title <strong>“HW7 ready for grading”</strong> in your repository or re-use the above mentioned issue. Please reach out as early as possible, but <strong>2020-01-17</strong> the latest! The date of passing the homework part, if you pass this additional homework, will be the date you raised your HW7 issue. Submissions beyond the final February deadline are not accepted. Please also add a link from your repository’s <code>README.md</code> file to <code>HW7/HW7.md</code>.</p>
+<p>This homework exercise corresponds to the re-examination of the homework part of the HT2019 course for students who particpated actively in the submissions of homeworks during the semester, but for various reasons did not pass one or several of their homework. Who has to which exercises depends sligtly on what homework was missed and is specified individually. All who followed the protocol should have instructions in their “Participating in HW7?” issue on what they need to do.</p>
+<p>Deadline for this re-examination homework is 2020-02-28. Submission occurs as usual by pushing into your homework repository followed by a new issue with the title <strong>“HW7 ready for grading”</strong> in your repository or re-use the above mentioned issue. The date of passing the homework part, if you pass this additional homework, will be the date you raised your HW7 issue. Submissions beyond the final February deadline are not accepted. Please also add a link from your repository’s <code>README.md</code> file to <code>HW7/HW7.md</code>.</p>
 </div>
 <div id="exercise-1---birdwatching" class="section level2">
 <h2>Exercise 1 - Birdwatching</h2>
@@ -404,7 +404,7 @@ glimpse(species_data)</code></pre>
 <h3>Task 1 - Data cleaning</h3>
 <p>There are a few things we would like to fix initially:</p>
 <ul>
-<li><p>Some variable names contains spaces, which can be inconvenient. Either replace these spaces in variable names with underscores or use backtick quotation in your dplyr code, i.e. <code>`Common name`</code>.</p></li>
+<li><p>Some variable names contains spaces, which can be inconvenient. Either replace these spaces in variable names with underscores or use backtick quotation in your dplyr code, i.e. <code>`Common name`</code>.</p></li>
 <li><p>The <code>Start</code> and <code>End</code> variables should be of Date-format, not chr (depending on your local settings they may actually be correctly interpreted), use either <code>as.Date</code> or <code>lubridate</code> functionality within a mutate to fix this.</p></li>
 <li><p>Also turn <code>Uncertain determination</code> into a logical variable using <code>as.logical</code>.</p></li>
 <li><p>Create a new variable <code>Date</code> that equals the value of <code>Start</code>, in the following this will represent the observation date.</p></li>
@@ -433,24 +433,14 @@ glimpse(species_data)</code></pre>
 </div>
 <div id="exercise-3" class="section level2">
 <h2>Exercise 3</h2>
+<p>In this exercise we study longitudinal data on the protein content of milk from 79 cows on three different diets. The protein content is measured per cow for each week from 1 week up to 19 weeks after calving.</p>
 <div id="tasks-1" class="section level3">
 <h3>Tasks</h3>
 <ol style="list-style-type: lower-alpha">
-<li>…</li>
-<li>…</li>
-<li>…</li>
-</ol>
-<p>….</p>
-</div>
-</div>
-<div id="exercise-n" class="section level2">
-<h2>Exercise N</h2>
-<div id="tasks-2" class="section level3">
-<h3>Tasks</h3>
-<ol style="list-style-type: lower-alpha">
-<li>…</li>
-<li>…</li>
-<li>…</li>
+<li>Install the <code>nlme</code> package and load the <code>Milk</code> data from the package. Write code which computes the number of cows in the dataset and report the result (it should be 79).</li>
+<li>Create a single ggplot showing the trajectory in protein content as a function of time since calving for each cow and use <code>geom_smooth</code> to show a smooth curve for the expectation in each of the 3 diet groups. Which diet appears to provide the highest level of protein in the milk?</li>
+<li>Use <code>spread</code> to convert the data into wide format (<code>Milk_wide</code>), such that each cow has one row. Study the <code>NA</code>s in the resulting dataset and describe which two patterns you observe and how these patterns are probably caused. Hint: Before <code>spread</code> works on the milk dataset, you might need to massage the input data slightly.</li>
+<li>Convert the data back to long format thus making the result (<code>Milk_long</code>) now contain appropriate <code>NA</code>s. Use the <a href="https://github.com/njtierney/naniar"><code>naniar</code></a> package to extend your plot from task a. using the <code>naniar::geom_miss_point</code> geometry. Comment on the patterns you see in this plot.</li>
 </ol>
 </div>
 </div>

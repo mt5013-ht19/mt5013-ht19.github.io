@@ -27,9 +27,9 @@ Note that there are new data-sets available in the `HW_data` repository. Downloa
 
 #### Deadline 
 
-This homework exercise corresponds to the re-examination of the homework part of the HT2019 course for students who particpated actively in the submissions of homeworks during the semester, but for various reasons did not pass one or several of their homework. Who has to which exercises depends sligtly on what homework was missed and is specified individually. So if you want to participate please open an issue in your HW repository with the title  **Participating in HW`r hw_number`?"** in your repository and tag me with an @hoehleatsu in the body, because I will not get notified about the issue otherwise.
+This homework exercise corresponds to the re-examination of the homework part of the HT2019 course for students who particpated actively in the submissions of homeworks during the semester, but for various reasons did not pass one or several of their homework. Who has to which exercises depends sligtly on what homework was missed and is specified individually. All who followed the protocol should have instructions in their "Participating in HW7?" issue on what they need to do.
 
-At the moment there is no fixed final deadline for the homework, but this will change once the participants are clear and is likely somewhere during the mid/end February. Submission occurs as usual by creating a new issue with the title **"HW`r hw_number` ready for grading"** in your repository or re-use the above mentioned issue. Please reach out as early as possible, but **2020-01-17** the latest! The date of passing the homework part, if you pass this additional homework, will be the date you raised your HW7 issue. Submissions beyond the final February deadline are not accepted. Please also add a link from your repository's `README.md` file to ``HW`r hw_number`/HW`r hw_number`.md``.
+Deadline for this re-examination homework is 2020-02-28. Submission occurs as usual by pushing into your homework repository followed by a new issue with the title **"HW`r hw_number` ready for grading"** in your repository or re-use the above mentioned issue. The date of passing the homework part, if you pass this additional homework, will be the date you raised your HW7 issue. Submissions beyond the final February deadline are not accepted. Please also add a link from your repository's `README.md` file to ``HW`r hw_number`/HW`r hw_number`.md``.
 
 ## Exercise 1 - Birdwatching
 
@@ -74,20 +74,20 @@ a. Write stringr code which, given an algorithm, returns the left-right (L/R) mi
 b. Use the [http://cube.crider.co.uk/visualcube.php](http://cube.crider.co.uk/visualcube.php) API to generate a .png image of applying the L/R mirrored version of the T-Perm to a solved cube through R. Include the resulting image using `knitr::include_graphics()`. Hint: Just use `file.download` on the appropriate URL.
 
 ## Exercise 3
+```{r, echo=FALSE}
+suppressPackageStartupMessages(library(nlme))
+data(Milk)
+
+n_cow <- Milk %>% distinct(Cow) %>% summarise(n=n())
+```
+
+In this exercise we study longitudinal data on the protein content of milk from `r n_cow` cows on three different diets. The protein content is measured per cow for each week from 1 week up to 19 weeks after calving. 
 
 ### Tasks
 
-a. ...
-b. ...
-c. ...
+a. Install the `nlme` package and load the `Milk` data from the package. Write code which computes the number of cows in the dataset and report the result (it should be 79). 
+b. Create a single ggplot showing the trajectory in protein content as a function of time since calving for each cow and use `geom_smooth` to show a smooth curve for the expectation in each of the 3 diet groups. Which diet appears to provide the highest level of protein in the milk?
+c. Use `spread` to convert the data into wide format (`Milk_wide`), such that each cow has one row. Study the `NA`s in the resulting dataset and describe which two patterns you observe and how these patterns are probably caused. Hint: Before `spread` works on the milk dataset, you might need to massage the input data slightly.
+d. Convert the data back to long format thus making the result (`Milk_long`) now contain  appropriate `NA`s. Use the [`naniar`](https://github.com/njtierney/naniar) package to extend your plot from task a. using the `naniar::geom_miss_point` geometry. Comment on the patterns you see in this plot.
 
-....
 
-
-## Exercise N
-
-### Tasks
-
-a. ...
-b. ...
-c. ...
